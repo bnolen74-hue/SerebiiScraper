@@ -431,12 +431,18 @@ async function buildEvolutionTabs(names, chains = []) {
     }
 
     // egg moves dropdown with comprehensive breeding chains
-    const eggMoves = data.moves.filter(m =>
-      m.version_group_details.some(d =>
-        d.move_learn_method.name === 'egg' &&
-        GEN1_3_GROUPS.has(d.version_group.name)
-      )
-    ).map(m => m.move.name);
+    const eggMovesSet = new Set();
+    data.moves.forEach(m => {
+      m.version_group_details.forEach(d => {
+        if (
+          d.move_learn_method.name === 'egg' &&
+          GEN1_3_GROUPS.has(d.version_group.name)
+        ) {
+          eggMovesSet.add(m.move.name);
+        }
+      });
+    });
+    const eggMoves = Array.from(eggMovesSet);
     if (eggMoves.length) {
       const eggDiv = document.createElement('div');
       const detailsEl = document.createElement('details');
