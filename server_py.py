@@ -52,6 +52,22 @@ def read_gen(gen: int):
     return [dict(r) for r in rows]
 
 
+@app.get("/pokemon-names")
+def all_names(gen: Optional[int] = None):
+    """Return list of all pokemon names; optionally filter by generation."""
+    conn = get_db()
+    cur = conn.cursor()
+    if gen is not None:
+        cur.execute("SELECT name FROM pokemon WHERE gen=?", (gen,))
+    else:
+        # default behavior: only return names from gens 1–3
+        cur.execute("SELECT name FROM pokemon WHERE gen BETWEEN 1 AND 3")
+    rows = cur.fetchall()
+    conn.close()
+    names = sorted({r[0] for r in rows})
+    return names
+
+
 class MCPRequest(BaseModel):
     pokemonName: Optional[str]
 
