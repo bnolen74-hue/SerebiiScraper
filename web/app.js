@@ -247,6 +247,16 @@ const GEN1_3_GROUPS = new Set([
   'ruby-sapphire','emerald','firered-leafgreen' // gen3
 ]);
 
+const VERSION_GROUP_NAMES = {
+  'red-blue': 'Red/Blue',
+  'yellow': 'Yellow',
+  'gold-silver': 'Gold/Silver',
+  'crystal': 'Crystal',
+  'ruby-sapphire': 'Ruby/Sapphire',
+  'emerald': 'Emerald',
+  'firered-leafgreen': 'FireRed/LeafGreen'
+};
+
 async function buildEvolutionTabs(names, chains = []) {
   const out = document.getElementById('output');
   const tabsDiv = document.createElement('div');
@@ -323,7 +333,7 @@ async function buildEvolutionTabs(names, chains = []) {
     contentDiv.appendChild(statDiv);
 
     // level up moves (filtered to gen1-3)
-    const movesByLevel = {};
+    const movesByLevelByVersion = {};
     data.moves.forEach(m => {
       m.version_group_details.forEach(d => {
         if (
@@ -331,27 +341,88 @@ async function buildEvolutionTabs(names, chains = []) {
           GEN1_3_GROUPS.has(d.version_group.name) &&
           d.level_learned_at > 0
         ) {
+          const versionGroup = d.version_group.name;
           const lvl = d.level_learned_at;
-          movesByLevel[lvl] = movesByLevel[lvl] || new Set();
-          movesByLevel[lvl].add(m.move.name);
+          
+          if (!movesByLevelByVersion[versionGroup]) {
+            movesByLevelByVersion[versionGroup] = {};
+          }
+          if (!movesByLevelByVersion[versionGroup][lvl]) {
+            movesByLevelByVersion[versionGroup][lvl] = new Set();
+          }
+          movesByLevelByVersion[versionGroup][lvl].add(m.move.name);
         }
       });
     });
-    const levels = Object.keys(movesByLevel).map(Number).sort((a,b)=>a-b);
-    if (levels.length) {
+    
+    if (Object.keys(movesByLevelByVersion).length > 0) {
       const lm = document.createElement('div');
       lm.innerHTML = '<strong>Level-up moves:</strong>';
-      const ulm = document.createElement('ul');
       
-      for (const lvl of levels) {
-        const moveNames = Array.from(movesByLevel[lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
-        for (const moveName of moveNames) {
-          const li = document.createElement('li');
-          li.textContent = `Lvl ${lvl}: ${moveName}`;
-          ulm.appendChild(li);
+      // Sort version groups by generation order
+      const sortedVersions = Object.keys(movesByLevelByVersion).sort((a, b) => {
+        const versionOrder = ['red-blue','yellow','gold-silver','crystal','ruby-sapphire','emerald','firered-leafgreen'];
+        return versionOrder.indexOf(a) - versionOrder.indexOf(b);
+      });
+      
+      // Create tabs for different versions
+      const versionTabs = document.createElement('div');
+      versionTabs.style.display = 'flex';
+      versionTabs.style.gap = '4px';
+      versionTabs.style.marginBottom = '12px';
+      versionTabs.style.borderBottom = '1px solid #666';
+      
+      const versionContents = document.createElement('div');
+      
+      sortedVersions.forEach((versionGroup, vIdx) => {
+        const btn = document.createElement('button');
+        btn.textContent = VERSION_GROUP_NAMES[versionGroup];
+        btn.style.padding = '4px 8px';
+        btn.style.fontSize = '12px';
+        btn.style.cursor = 'pointer';
+        btn.style.background = vIdx === 0 ? '#8bac0f' : '#333';
+        btn.style.color = '#fff';
+        btn.style.border = 'none';
+        btn.style.borderRadius = '0';
+        
+        btn.addEventListener('click', () => {
+          // Hide all contents
+          Array.from(versionContents.querySelectorAll('.version-moves')).forEach(el => el.style.display = 'none');
+          // Show selected
+          document.getElementById(`moves-${vIdx}`).style.display = 'block';
+          // Update button styles
+          Array.from(versionTabs.querySelectorAll('button')).forEach(b => {
+            b.style.background = '#333';
+          });
+          btn.style.background = '#8bac0f';
+        });
+        
+        versionTabs.appendChild(btn);
+        
+        // Create content for this version
+        const versionDiv = document.createElement('div');
+        versionDiv.id = `moves-${vIdx}`;
+        versionDiv.className = 'version-moves';
+        versionDiv.style.display = vIdx === 0 ? 'block' : 'none';
+        
+        const ulm = document.createElement('ul');
+        const levels = Object.keys(movesByLevelByVersion[versionGroup]).map(Number).sort((a,b)=>a-b);
+        
+        for (const lvl of levels) {
+          const moveNames = Array.from(movesByLevelByVersion[versionGroup][lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
+          for (const moveName of moveNames) {
+            const li = document.createElement('li');
+            li.textContent = `Lvl ${lvl}: ${moveName}`;
+            ulm.appendChild(li);
+          }
         }
-      }
-      lm.appendChild(ulm);
+        
+        versionDiv.appendChild(ulm);
+        versionContents.appendChild(versionDiv);
+      });
+      
+      lm.appendChild(versionTabs);
+      lm.appendChild(versionContents);
       contentDiv.appendChild(lm);
     }
 
@@ -442,11 +513,60 @@ async function buildEvolutionTabs(names, chains = []) {
               }
             }
           } else {
-            const text = document.createElement('span');
-            text.textContent = '(external source)';
-            text.style.fontSize = '10px';
-            text.style.color = '#888';
-            chainContainer.appendChild(text);
+            // No direct learner in evolution chain - show all other parents that can breed this move
+            const otherParents = [];
+            for (const pokemon of mi.learned_by_pokemon) {
+              if (!names.includes(pokemon.name)) {
+                otherParents.push(pokemon.name);
+              }
+            }
+            
+            if (otherParents.length > 0) {
+              const text = document.createElement('span');
+              text.textContent = 'Breed from: ';
+              text.style.whiteSpace = 'nowrap';
+              chainContainer.appendChild(text);
+              
+              // Fetch and display sprites for other parents
+              for (let p = 0; p < Math.min(otherParents.length, 4); p++) {
+                const parentName = otherParents[p];
+                try {
+                  const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${parentName}`);
+                  if (spriteResp.ok) {
+                    const spriteData = await spriteResp.json();
+                    const spriteUrl = spriteData.sprites?.front_default;
+                    if (spriteUrl) {
+                      const img = document.createElement('img');
+                      img.src = spriteUrl;
+                      img.style.width = '32px';
+                      img.style.height = '32px';
+                      img.style.imageRendering = 'pixelated';
+                      img.title = parentName;
+                      chainContainer.appendChild(img);
+                    }
+                  }
+                } catch (_) {
+                  const text = document.createElement('span');
+                  text.textContent = parentName;
+                  text.style.fontSize = '10px';
+                  chainContainer.appendChild(text);
+                }
+              }
+              
+              if (otherParents.length > 4) {
+                const moreText = document.createElement('span');
+                moreText.textContent = `+${otherParents.length - 4}`;
+                moreText.style.fontSize = '10px';
+                moreText.style.color = '#8bac0f';
+                chainContainer.appendChild(moreText);
+              }
+            } else {
+              const text = document.createElement('span');
+              text.textContent = '(no gen 1-3 sources)';
+              text.style.fontSize = '10px';
+              text.style.color = '#888';
+              chainContainer.appendChild(text);
+            }
           }
           
           mainChain.appendChild(chainContainer);
