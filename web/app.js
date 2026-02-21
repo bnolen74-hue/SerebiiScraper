@@ -660,6 +660,7 @@ async function buildEvolutionTabs(names, chains = []) {
                 separatorLi.style.borderTop = '1px solid #666';
                 separatorLi.style.marginTop = '12px';
                 separatorLi.style.paddingTop = '12px';
+                separatorLi.style.listStyle = 'none';
                 ulEgg.appendChild(separatorLi);
                 
                 // Add breed chains from egg groups
