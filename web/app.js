@@ -586,6 +586,157 @@ async function buildEvolutionTabs(names, chains = []) {
       eggDiv.appendChild(detailsEl);
       contentDiv.appendChild(eggDiv);
     }
+
+    // Breed chains from egg groups - show which other Pokemon can pass egg moves
+    try {
+      const currentSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${data.name}`;
+      const speciesResp = await fetch(currentSpeciesUrl);
+      if (speciesResp.ok) {
+        const speciesData = await speciesResp.json();
+        const eggGroups = speciesData.egg_groups?.map(g => g.name) || [];
+        
+        if (eggGroups.length > 0) {
+          // Fetch all pokemon in these egg groups
+          const pokemonInGroups = new Set();
+          for (const group of eggGroups) {
+            try {
+              const groupResp = await fetch(`https://pokeapi.co/api/v2/egg-group/${group}`);
+              if (groupResp.ok) {
+                const groupData = await groupResp.json();
+                for (const poke of groupData.pokemon_species) {
+                  pokemonInGroups.add(poke.name);
+                }
+              }
+            } catch (_) {}
+          }
+          
+          // Remove current Pokemon and evolution chain from the list
+          pokemonInGroups.delete(data.name);
+          for (const name of names) {
+            pokemonInGroups.delete(name);
+          }
+          
+          if (pokemonInGroups.size > 0) {
+            // Check each egg move to see if egg group Pokemon learn it by level-up
+            const breedChainsMap = {};
+            
+            for (const mv of eggMoves) {
+              const breedSources = [];
+              
+              for (const otherPoke of pokemonInGroups) {
+                try {
+                  // Get the other Pokemon's move data
+                  const otherResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${otherPoke}`);
+                  if (otherResp.ok) {
+                    const otherData = await otherResp.json();
+                    // Check if it can learn this move by level-up in GBA games
+                    const canLearn = otherData.moves.some(m => 
+                      m.move.name === mv &&
+                      m.version_group_details.some(d =>
+                        (d.move_learn_method.name === 'level-up' || 
+                         d.move_learn_method.name === 'egg') &&
+                        GBA_GROUPS.has(d.version_group.name)
+                      )
+                    );
+                    
+                    if (canLearn) {
+                      breedSources.push(otherPoke);
+                    }
+                  }
+                } catch (_) {}
+              }
+              
+              if (breedSources.length > 0) {
+                breedChainsMap[mv] = breedSources;
+              }
+            }
+            
+            if (Object.keys(breedChainsMap).length > 0) {
+              const breedDiv = document.createElement('div');
+              const breedDetails = document.createElement('details');
+              const breedSum = document.createElement('summary');
+              breedSum.textContent = 'Breed chains from egg groups';
+              breedDetails.appendChild(breedSum);
+              const breedUl = document.createElement('ul');
+              
+              for (const [move, sources] of Object.entries(breedChainsMap)) {
+                const li = document.createElement('li');
+                li.style.marginBottom = '12px';
+                
+                const moveLabel = document.createElement('div');
+                moveLabel.style.marginBottom = '4px';
+                moveLabel.textContent = move + ':';
+                li.appendChild(moveLabel);
+                
+                for (const source of sources.slice(0, 3)) {
+                  const chainDiv = document.createElement('div');
+                  chainDiv.style.display = 'flex';
+                  chainDiv.style.alignItems = 'center';
+                  chainDiv.style.gap = '4px';
+                  chainDiv.style.marginLeft = '16px';
+                  chainDiv.style.marginBottom = '4px';
+                  
+                  // Source Pokemon sprite
+                  try {
+                    const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${source}`);
+                    if (spriteResp.ok) {
+                      const spriteData = await spriteResp.json();
+                      const spriteUrl = spriteData.sprites?.front_default;
+                      if (spriteUrl) {
+                        const img = document.createElement('img');
+                        img.src = spriteUrl;
+                        img.style.width = '32px';
+                        img.style.height = '32px';
+                        img.style.imageRendering = 'pixelated';
+                        img.title = source;
+                        chainDiv.appendChild(img);
+                      }
+                    }
+                  } catch (_) {}
+                  
+                  // Arrow
+                  const arrow = document.createElement('span');
+                  arrow.textContent = '→';
+                  arrow.style.color = '#8bac0f';
+                  chainDiv.appendChild(arrow);
+                  
+                  // Current Pokemon sprite
+                  try {
+                    const spriteUrl = data.sprites?.front_default;
+                    if (spriteUrl) {
+                      const img = document.createElement('img');
+                      img.src = spriteUrl;
+                      img.style.width = '32px';
+                      img.style.height = '32px';
+                      img.style.imageRendering = 'pixelated';
+                      img.title = data.name;
+                      chainDiv.appendChild(img);
+                    }
+                  } catch (_) {}
+                  
+                  li.appendChild(chainDiv);
+                }
+                
+                if (sources.length > 3) {
+                  const moreText = document.createElement('div');
+                  moreText.style.marginLeft = '16px';
+                  moreText.style.fontSize = '10px';
+                  moreText.style.color = '#8bac0f';
+                  moreText.textContent = `+${sources.length - 3} more`;
+                  li.appendChild(moreText);
+                }
+                
+                breedUl.appendChild(li);
+              }
+              
+              breedDetails.appendChild(breedUl);
+              breedDiv.appendChild(breedDetails);
+              contentDiv.appendChild(breedDiv);
+            }
+          }
+        }
+      }
+    } catch (_) {}
   }
 
   if (names.length) showTab(0);
