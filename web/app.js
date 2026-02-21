@@ -347,55 +347,7 @@ async function buildEvolutionTabs(names, chains = []) {
         const moveNames = Array.from(movesByLevel[lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
         for (const moveName of moveNames) {
           const li = document.createElement('li');
-          li.style.marginBottom = '4px';
-          
-          // Main move info
-          const main = document.createElement('div');
-          main.textContent = `Lvl ${lvl}: ${moveName}`;
-          li.appendChild(main);
-          
-          // Show other species that can learn this move
-          const detailsEl = document.createElement('details');
-          detailsEl.style.marginLeft = '16px';
-          detailsEl.style.fontSize = '11px';
-          detailsEl.style.color = '#aaa';
-          
-          const summary = document.createElement('summary');
-          summary.textContent = 'Also learned by...';
-          summary.style.cursor = 'pointer';
-          detailsEl.appendChild(summary);
-          
-          const otherSpeciesDiv = document.createElement('div');
-          otherSpeciesDiv.style.padding = '4px';
-          
-          // Fetch move data to find other learners
-          (async () => {
-            try {
-              const moveResp = await fetch(`https://pokeapi.co/api/v2/move/${moveName}`);
-              if (moveResp.ok) {
-                const moveData = await moveResp.json();
-                const otherLearners = [];
-                
-                for (const pokemon of moveData.learned_by_pokemon) {
-                  if (!names.includes(pokemon.name)) {
-                    otherLearners.push(pokemon.name);
-                  }
-                }
-                
-                if (otherLearners.length > 0) {
-                  otherSpeciesDiv.textContent = otherLearners.slice(0, 8).join(', ') + 
-                    (otherLearners.length > 8 ? '...' : '');
-                } else {
-                  otherSpeciesDiv.textContent = 'None in gen 1-3';
-                }
-              }
-            } catch (_) {
-              otherSpeciesDiv.textContent = 'Unable to load';
-            }
-          })();
-          
-          detailsEl.appendChild(otherSpeciesDiv);
-          li.appendChild(detailsEl);
+          li.textContent = `Lvl ${lvl}: ${moveName}`;
           ulm.appendChild(li);
         }
       }
