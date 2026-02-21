@@ -1,0 +1,2318 @@
+[
+  {
+    "name": "bulbasaur",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/1/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/bulbasaur/"
+  },
+  {
+    "name": "charmander",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/4/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/charmander/"
+  },
+  {
+    "name": "squirtle",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/7/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/squirtle/"
+  },
+  {
+    "name": "caterpie",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/10/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/caterpie/"
+  },
+  {
+    "name": "weedle",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/13/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/weedle/"
+  },
+  {
+    "name": "pidgey",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/16/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pidgey/"
+  },
+  {
+    "name": "rattata",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/19/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/rattata/"
+  },
+  {
+    "name": "spearow",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/21/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/spearow/"
+  },
+  {
+    "name": "ekans",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/23/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ekans/"
+  },
+  {
+    "name": "sandshrew",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/27/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sandshrew/"
+  },
+  {
+    "name": "nidoran-f",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/29/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nidoranf/"
+  },
+  {
+    "name": "nidoran-m",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/32/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nidoranm/"
+  },
+  {
+    "name": "vulpix",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/37/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/vulpix/"
+  },
+  {
+    "name": "zubat",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/41/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/zubat/"
+  },
+  {
+    "name": "oddish",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/43/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/oddish/"
+  },
+  {
+    "name": "paras",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/46/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/paras/"
+  },
+  {
+    "name": "venonat",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/48/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/venonat/"
+  },
+  {
+    "name": "diglett",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/50/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/diglett/"
+  },
+  {
+    "name": "meowth",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/52/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/meowth/"
+  },
+  {
+    "name": "psyduck",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/54/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/psyduck/"
+  },
+  {
+    "name": "mankey",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/56/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mankey/"
+  },
+  {
+    "name": "growlithe",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/58/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/growlithe/"
+  },
+  {
+    "name": "poliwag",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/60/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/poliwag/"
+  },
+  {
+    "name": "abra",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/63/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/abra/"
+  },
+  {
+    "name": "machop",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/66/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/machop/"
+  },
+  {
+    "name": "bellsprout",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/69/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/bellsprout/"
+  },
+  {
+    "name": "tentacool",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/72/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/tentacool/"
+  },
+  {
+    "name": "geodude",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/74/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/geodude/"
+  },
+  {
+    "name": "venusaur",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/3/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/venusaur/"
+  },
+  {
+    "name": "charmeleon",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/5/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/charmeleon/"
+  },
+  {
+    "name": "charizard",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/6/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/charizard/"
+  },
+  {
+    "name": "wartortle",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/8/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wartortle/"
+  },
+  {
+    "name": "blastoise",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/9/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/blastoise/"
+  },
+  {
+    "name": "metapod",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/11/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/metapod/"
+  },
+  {
+    "name": "butterfree",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/12/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/butterfree/"
+  },
+  {
+    "name": "kakuna",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/14/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kakuna/"
+  },
+  {
+    "name": "beedrill",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/15/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/beedrill/"
+  },
+  {
+    "name": "pidgeotto",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/17/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pidgeotto/"
+  },
+  {
+    "name": "pidgeot",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/18/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pidgeot/"
+  },
+  {
+    "name": "raticate",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/20/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/raticate/"
+  },
+  {
+    "name": "fearow",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/22/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/fearow/"
+  },
+  {
+    "name": "arbok",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/24/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/arbok/"
+  },
+  {
+    "name": "pikachu",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/25/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pikachu/"
+  },
+  {
+    "name": "raichu",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/26/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/raichu/"
+  },
+  {
+    "name": "sandslash",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/28/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sandslash/"
+  },
+  {
+    "name": "nidorina",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/30/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nidorina/"
+  },
+  {
+    "name": "nidoqueen",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/31/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nidoqueen/"
+  },
+  {
+    "name": "nidorino",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/33/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nidorino/"
+  },
+  {
+    "name": "nidoking",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/34/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nidoking/"
+  },
+  {
+    "name": "clefairy",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/35/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/clefairy/"
+  },
+  {
+    "name": "clefable",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/36/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/clefable/"
+  },
+  {
+    "name": "ninetales",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/38/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ninetales/"
+  },
+  {
+    "name": "jigglypuff",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/39/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/jigglypuff/"
+  },
+  {
+    "name": "wigglytuff",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/40/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wigglytuff/"
+  },
+  {
+    "name": "golbat",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/42/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/golbat/"
+  },
+  {
+    "name": "gloom",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/44/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gloom/"
+  },
+  {
+    "name": "vileplume",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/45/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/vileplume/"
+  },
+  {
+    "name": "parasect",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/47/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/parasect/"
+  },
+  {
+    "name": "venomoth",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/49/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/venomoth/"
+  },
+  {
+    "name": "dugtrio",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/51/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dugtrio/"
+  },
+  {
+    "name": "persian",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/53/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/persian/"
+  },
+  {
+    "name": "golduck",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/55/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/golduck/"
+  },
+  {
+    "name": "primeape",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/57/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/primeape/"
+  },
+  {
+    "name": "arcanine",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/59/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/arcanine/"
+  },
+  {
+    "name": "poliwhirl",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/61/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/poliwhirl/"
+  },
+  {
+    "name": "poliwrath",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/62/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/poliwrath/"
+  },
+  {
+    "name": "kadabra",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/64/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kadabra/"
+  },
+  {
+    "name": "alakazam",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/65/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/alakazam/"
+  },
+  {
+    "name": "machoke",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/67/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/machoke/"
+  },
+  {
+    "name": "machamp",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/68/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/machamp/"
+  },
+  {
+    "name": "weepinbell",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/70/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/weepinbell/"
+  },
+  {
+    "name": "victreebel",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/71/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/victreebel/"
+  },
+  {
+    "name": "tentacruel",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/73/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/tentacruel/"
+  },
+  {
+    "name": "graveler",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/75/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/graveler/"
+  },
+  {
+    "name": "ponyta",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/77/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ponyta/"
+  },
+  {
+    "name": "slowpoke",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/79/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/slowpoke/"
+  },
+  {
+    "name": "magnemite",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/81/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/magnemite/"
+  },
+  {
+    "name": "farfetchd",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/83/",
+    "serebii_url": null
+  },
+  {
+    "name": "doduo",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/84/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/doduo/"
+  },
+  {
+    "name": "seel",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/86/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/seel/"
+  },
+  {
+    "name": "grimer",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/88/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/grimer/"
+  },
+  {
+    "name": "shellder",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/90/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/shellder/"
+  },
+  {
+    "name": "gastly",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/92/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gastly/"
+  },
+  {
+    "name": "onix",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/95/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/onix/"
+  },
+  {
+    "name": "drowzee",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/96/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/drowzee/"
+  },
+  {
+    "name": "krabby",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/98/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/krabby/"
+  },
+  {
+    "name": "voltorb",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/100/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/voltorb/"
+  },
+  {
+    "name": "exeggcute",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/102/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/exeggcute/"
+  },
+  {
+    "name": "cubone",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/104/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cubone/"
+  },
+  {
+    "name": "lickitung",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/108/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lickitung/"
+  },
+  {
+    "name": "koffing",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/109/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/koffing/"
+  },
+  {
+    "name": "rhyhorn",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/111/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/rhyhorn/"
+  },
+  {
+    "name": "tangela",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/114/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/tangela/"
+  },
+  {
+    "name": "kangaskhan",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/115/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kangaskhan/"
+  },
+  {
+    "name": "horsea",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/116/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/horsea/"
+  },
+  {
+    "name": "goldeen",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/118/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/goldeen/"
+  },
+  {
+    "name": "staryu",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/120/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/staryu/"
+  },
+  {
+    "name": "scyther",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/123/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/scyther/"
+  },
+  {
+    "name": "pinsir",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/127/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pinsir/"
+  },
+  {
+    "name": "tauros",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/128/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/tauros/"
+  },
+  {
+    "name": "magikarp",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/129/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/magikarp/"
+  },
+  {
+    "name": "lapras",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/131/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lapras/"
+  },
+  {
+    "name": "ditto",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/132/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ditto/"
+  },
+  {
+    "name": "eevee",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/133/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/eevee/"
+  },
+  {
+    "name": "porygon",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/137/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/porygon/"
+  },
+  {
+    "name": "omanyte",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/138/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/omanyte/"
+  },
+  {
+    "name": "kabuto",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/140/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kabuto/"
+  },
+  {
+    "name": "aerodactyl",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/142/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/aerodactyl/"
+  },
+  {
+    "name": "articuno",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/144/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/articuno/"
+  },
+  {
+    "name": "zapdos",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/145/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/zapdos/"
+  },
+  {
+    "name": "moltres",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/146/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/moltres/"
+  },
+  {
+    "name": "dratini",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/147/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dratini/"
+  },
+  {
+    "name": "mewtwo",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/150/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mewtwo/"
+  },
+  {
+    "name": "rapidash",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/78/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/rapidash/"
+  },
+  {
+    "name": "slowbro",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/80/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/slowbro/"
+  },
+  {
+    "name": "magneton",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/82/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/magneton/"
+  },
+  {
+    "name": "dodrio",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/85/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dodrio/"
+  },
+  {
+    "name": "dewgong",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/87/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dewgong/"
+  },
+  {
+    "name": "muk",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/89/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/muk/"
+  },
+  {
+    "name": "cloyster",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/91/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cloyster/"
+  },
+  {
+    "name": "haunter",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/93/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/haunter/"
+  },
+  {
+    "name": "gengar",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/94/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gengar/"
+  },
+  {
+    "name": "hypno",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/97/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/hypno/"
+  },
+  {
+    "name": "kingler",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/99/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kingler/"
+  },
+  {
+    "name": "electrode",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/101/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/electrode/"
+  },
+  {
+    "name": "exeggutor",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/103/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/exeggutor/"
+  },
+  {
+    "name": "marowak",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/105/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/marowak/"
+  },
+  {
+    "name": "hitmonlee",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/106/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/hitmonlee/"
+  },
+  {
+    "name": "hitmonchan",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/107/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/hitmonchan/"
+  },
+  {
+    "name": "weezing",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/110/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/weezing/"
+  },
+  {
+    "name": "rhydon",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/112/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/rhydon/"
+  },
+  {
+    "name": "chansey",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/113/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/chansey/"
+  },
+  {
+    "name": "seadra",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/117/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/seadra/"
+  },
+  {
+    "name": "seaking",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/119/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/seaking/"
+  },
+  {
+    "name": "starmie",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/121/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/starmie/"
+  },
+  {
+    "name": "mr-mime",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/122/",
+    "serebii_url": null
+  },
+  {
+    "name": "jynx",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/124/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/jynx/"
+  },
+  {
+    "name": "electabuzz",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/125/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/electabuzz/"
+  },
+  {
+    "name": "magmar",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/126/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/magmar/"
+  },
+  {
+    "name": "gyarados",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/130/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gyarados/"
+  },
+  {
+    "name": "vaporeon",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/134/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/vaporeon/"
+  },
+  {
+    "name": "jolteon",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/135/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/jolteon/"
+  },
+  {
+    "name": "flareon",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/136/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/flareon/"
+  },
+  {
+    "name": "omastar",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/139/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/omastar/"
+  },
+  {
+    "name": "kabutops",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/141/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kabutops/"
+  },
+  {
+    "name": "snorlax",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/143/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/snorlax/"
+  },
+  {
+    "name": "dragonair",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/148/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dragonair/"
+  },
+  {
+    "name": "dragonite",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/149/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dragonite/"
+  },
+  {
+    "name": "mew",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/151/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mew/"
+  },
+  {
+    "name": "ivysaur",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/2/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ivysaur/"
+  },
+  {
+    "name": "golem",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/76/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/golem/"
+  },
+  {
+    "name": "chikorita",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/152/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/chikorita/"
+  },
+  {
+    "name": "cyndaquil",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/155/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cyndaquil/"
+  },
+  {
+    "name": "totodile",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/158/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/totodile/"
+  },
+  {
+    "name": "sentret",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/161/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sentret/"
+  },
+  {
+    "name": "hoothoot",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/163/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/hoothoot/"
+  },
+  {
+    "name": "ledyba",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/165/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ledyba/"
+  },
+  {
+    "name": "spinarak",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/167/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/spinarak/"
+  },
+  {
+    "name": "chinchou",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/170/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/chinchou/"
+  },
+  {
+    "name": "pichu",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/172/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pichu/"
+  },
+  {
+    "name": "cleffa",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/173/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cleffa/"
+  },
+  {
+    "name": "igglybuff",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/174/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/igglybuff/"
+  },
+  {
+    "name": "togepi",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/175/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/togepi/"
+  },
+  {
+    "name": "natu",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/177/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/natu/"
+  },
+  {
+    "name": "mareep",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/179/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mareep/"
+  },
+  {
+    "name": "hoppip",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/187/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/hoppip/"
+  },
+  {
+    "name": "aipom",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/190/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/aipom/"
+  },
+  {
+    "name": "sunkern",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/191/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sunkern/"
+  },
+  {
+    "name": "yanma",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/193/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/yanma/"
+  },
+  {
+    "name": "wooper",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/194/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wooper/"
+  },
+  {
+    "name": "murkrow",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/198/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/murkrow/"
+  },
+  {
+    "name": "misdreavus",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/200/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/misdreavus/"
+  },
+  {
+    "name": "unown",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/201/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/unown/"
+  },
+  {
+    "name": "girafarig",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/203/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/girafarig/"
+  },
+  {
+    "name": "pineco",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/204/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pineco/"
+  },
+  {
+    "name": "dunsparce",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/206/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dunsparce/"
+  },
+  {
+    "name": "gligar",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/207/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gligar/"
+  },
+  {
+    "name": "snubbull",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/209/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/snubbull/"
+  },
+  {
+    "name": "qwilfish",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/211/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/qwilfish/"
+  },
+  {
+    "name": "shuckle",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/213/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/shuckle/"
+  },
+  {
+    "name": "heracross",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/214/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/heracross/"
+  },
+  {
+    "name": "sneasel",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/215/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sneasel/"
+  },
+  {
+    "name": "teddiursa",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/216/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/teddiursa/"
+  },
+  {
+    "name": "slugma",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/218/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/slugma/"
+  },
+  {
+    "name": "swinub",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/220/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/swinub/"
+  },
+  {
+    "name": "corsola",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/222/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/corsola/"
+  },
+  {
+    "name": "remoraid",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/223/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/remoraid/"
+  },
+  {
+    "name": "delibird",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/225/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/delibird/"
+  },
+  {
+    "name": "meganium",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/154/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/meganium/"
+  },
+  {
+    "name": "quilava",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/156/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/quilava/"
+  },
+  {
+    "name": "typhlosion",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/157/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/typhlosion/"
+  },
+  {
+    "name": "croconaw",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/159/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/croconaw/"
+  },
+  {
+    "name": "feraligatr",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/160/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/feraligatr/"
+  },
+  {
+    "name": "furret",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/162/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/furret/"
+  },
+  {
+    "name": "noctowl",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/164/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/noctowl/"
+  },
+  {
+    "name": "ledian",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/166/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ledian/"
+  },
+  {
+    "name": "ariados",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/168/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ariados/"
+  },
+  {
+    "name": "crobat",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/169/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/crobat/"
+  },
+  {
+    "name": "lanturn",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/171/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lanturn/"
+  },
+  {
+    "name": "togetic",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/176/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/togetic/"
+  },
+  {
+    "name": "xatu",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/178/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/xatu/"
+  },
+  {
+    "name": "flaaffy",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/180/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/flaaffy/"
+  },
+  {
+    "name": "ampharos",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/181/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ampharos/"
+  },
+  {
+    "name": "bellossom",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/182/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/bellossom/"
+  },
+  {
+    "name": "marill",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/183/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/marill/"
+  },
+  {
+    "name": "azumarill",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/184/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/azumarill/"
+  },
+  {
+    "name": "sudowoodo",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/185/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sudowoodo/"
+  },
+  {
+    "name": "politoed",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/186/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/politoed/"
+  },
+  {
+    "name": "skiploom",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/188/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/skiploom/"
+  },
+  {
+    "name": "jumpluff",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/189/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/jumpluff/"
+  },
+  {
+    "name": "sunflora",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/192/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sunflora/"
+  },
+  {
+    "name": "quagsire",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/195/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/quagsire/"
+  },
+  {
+    "name": "espeon",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/196/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/espeon/"
+  },
+  {
+    "name": "umbreon",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/197/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/umbreon/"
+  },
+  {
+    "name": "slowking",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/199/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/slowking/"
+  },
+  {
+    "name": "wobbuffet",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/202/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wobbuffet/"
+  },
+  {
+    "name": "forretress",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/205/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/forretress/"
+  },
+  {
+    "name": "steelix",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/208/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/steelix/"
+  },
+  {
+    "name": "granbull",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/210/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/granbull/"
+  },
+  {
+    "name": "scizor",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/212/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/scizor/"
+  },
+  {
+    "name": "ursaring",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/217/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ursaring/"
+  },
+  {
+    "name": "magcargo",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/219/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/magcargo/"
+  },
+  {
+    "name": "piloswine",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/221/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/piloswine/"
+  },
+  {
+    "name": "octillery",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/224/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/octillery/"
+  },
+  {
+    "name": "skarmory",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/227/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/skarmory/"
+  },
+  {
+    "name": "houndour",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/228/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/houndour/"
+  },
+  {
+    "name": "phanpy",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/231/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/phanpy/"
+  },
+  {
+    "name": "stantler",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/234/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/stantler/"
+  },
+  {
+    "name": "smeargle",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/235/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/smeargle/"
+  },
+  {
+    "name": "tyrogue",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/236/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/tyrogue/"
+  },
+  {
+    "name": "smoochum",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/238/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/smoochum/"
+  },
+  {
+    "name": "elekid",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/239/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/elekid/"
+  },
+  {
+    "name": "magby",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/240/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/magby/"
+  },
+  {
+    "name": "miltank",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/241/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/miltank/"
+  },
+  {
+    "name": "raikou",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/243/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/raikou/"
+  },
+  {
+    "name": "entei",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/244/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/entei/"
+  },
+  {
+    "name": "suicune",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/245/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/suicune/"
+  },
+  {
+    "name": "larvitar",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/246/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/larvitar/"
+  },
+  {
+    "name": "lugia",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/249/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lugia/"
+  },
+  {
+    "name": "ho-oh",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/250/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ho-oh/"
+  },
+  {
+    "name": "celebi",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/251/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/celebi/"
+  },
+  {
+    "name": "houndoom",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/229/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/houndoom/"
+  },
+  {
+    "name": "kingdra",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/230/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kingdra/"
+  },
+  {
+    "name": "donphan",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/232/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/donphan/"
+  },
+  {
+    "name": "porygon2",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/233/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/porygon2/"
+  },
+  {
+    "name": "hitmontop",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/237/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/hitmontop/"
+  },
+  {
+    "name": "blissey",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/242/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/blissey/"
+  },
+  {
+    "name": "pupitar",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/247/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pupitar/"
+  },
+  {
+    "name": "tyranitar",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/248/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/tyranitar/"
+  },
+  {
+    "name": "bayleef",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/153/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/bayleef/"
+  },
+  {
+    "name": "mantine",
+    "gen": 2,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/226/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mantine/"
+  },
+  {
+    "name": "treecko",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/252/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/treecko/"
+  },
+  {
+    "name": "torchic",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/255/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/torchic/"
+  },
+  {
+    "name": "mudkip",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/258/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mudkip/"
+  },
+  {
+    "name": "poochyena",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/261/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/poochyena/"
+  },
+  {
+    "name": "zigzagoon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/263/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/zigzagoon/"
+  },
+  {
+    "name": "wurmple",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/265/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wurmple/"
+  },
+  {
+    "name": "lotad",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/270/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lotad/"
+  },
+  {
+    "name": "seedot",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/273/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/seedot/"
+  },
+  {
+    "name": "taillow",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/276/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/taillow/"
+  },
+  {
+    "name": "wingull",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/278/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wingull/"
+  },
+  {
+    "name": "ralts",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/280/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ralts/"
+  },
+  {
+    "name": "surskit",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/283/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/surskit/"
+  },
+  {
+    "name": "shroomish",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/285/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/shroomish/"
+  },
+  {
+    "name": "slakoth",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/287/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/slakoth/"
+  },
+  {
+    "name": "nincada",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/290/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nincada/"
+  },
+  {
+    "name": "whismur",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/293/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/whismur/"
+  },
+  {
+    "name": "makuhita",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/296/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/makuhita/"
+  },
+  {
+    "name": "azurill",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/298/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/azurill/"
+  },
+  {
+    "name": "nosepass",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/299/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nosepass/"
+  },
+  {
+    "name": "skitty",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/300/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/skitty/"
+  },
+  {
+    "name": "grovyle",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/253/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/grovyle/"
+  },
+  {
+    "name": "sceptile",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/254/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sceptile/"
+  },
+  {
+    "name": "combusken",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/256/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/combusken/"
+  },
+  {
+    "name": "blaziken",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/257/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/blaziken/"
+  },
+  {
+    "name": "marshtomp",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/259/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/marshtomp/"
+  },
+  {
+    "name": "swampert",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/260/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/swampert/"
+  },
+  {
+    "name": "mightyena",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/262/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mightyena/"
+  },
+  {
+    "name": "linoone",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/264/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/linoone/"
+  },
+  {
+    "name": "silcoon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/266/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/silcoon/"
+  },
+  {
+    "name": "beautifly",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/267/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/beautifly/"
+  },
+  {
+    "name": "cascoon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/268/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cascoon/"
+  },
+  {
+    "name": "dustox",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/269/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dustox/"
+  },
+  {
+    "name": "lombre",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/271/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lombre/"
+  },
+  {
+    "name": "ludicolo",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/272/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ludicolo/"
+  },
+  {
+    "name": "nuzleaf",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/274/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/nuzleaf/"
+  },
+  {
+    "name": "shiftry",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/275/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/shiftry/"
+  },
+  {
+    "name": "swellow",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/277/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/swellow/"
+  },
+  {
+    "name": "pelipper",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/279/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/pelipper/"
+  },
+  {
+    "name": "kirlia",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/281/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kirlia/"
+  },
+  {
+    "name": "gardevoir",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/282/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gardevoir/"
+  },
+  {
+    "name": "masquerain",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/284/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/masquerain/"
+  },
+  {
+    "name": "breloom",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/286/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/breloom/"
+  },
+  {
+    "name": "vigoroth",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/288/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/vigoroth/"
+  },
+  {
+    "name": "slaking",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/289/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/slaking/"
+  },
+  {
+    "name": "ninjask",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/291/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/ninjask/"
+  },
+  {
+    "name": "shedinja",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/292/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/shedinja/"
+  },
+  {
+    "name": "loudred",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/294/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/loudred/"
+  },
+  {
+    "name": "exploud",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/295/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/exploud/"
+  },
+  {
+    "name": "hariyama",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/297/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/hariyama/"
+  },
+  {
+    "name": "sableye",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/302/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sableye/"
+  },
+  {
+    "name": "mawile",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/303/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/mawile/"
+  },
+  {
+    "name": "aron",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/304/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/aron/"
+  },
+  {
+    "name": "meditite",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/307/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/meditite/"
+  },
+  {
+    "name": "electrike",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/309/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/electrike/"
+  },
+  {
+    "name": "plusle",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/311/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/plusle/"
+  },
+  {
+    "name": "minun",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/312/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/minun/"
+  },
+  {
+    "name": "volbeat",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/313/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/volbeat/"
+  },
+  {
+    "name": "illumise",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/314/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/illumise/"
+  },
+  {
+    "name": "gulpin",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/316/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gulpin/"
+  },
+  {
+    "name": "carvanha",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/318/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/carvanha/"
+  },
+  {
+    "name": "wailmer",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/320/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wailmer/"
+  },
+  {
+    "name": "numel",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/322/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/numel/"
+  },
+  {
+    "name": "torkoal",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/324/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/torkoal/"
+  },
+  {
+    "name": "spoink",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/325/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/spoink/"
+  },
+  {
+    "name": "spinda",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/327/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/spinda/"
+  },
+  {
+    "name": "trapinch",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/328/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/trapinch/"
+  },
+  {
+    "name": "cacnea",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/331/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cacnea/"
+  },
+  {
+    "name": "swablu",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/333/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/swablu/"
+  },
+  {
+    "name": "zangoose",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/335/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/zangoose/"
+  },
+  {
+    "name": "seviper",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/336/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/seviper/"
+  },
+  {
+    "name": "lunatone",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/337/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lunatone/"
+  },
+  {
+    "name": "solrock",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/338/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/solrock/"
+  },
+  {
+    "name": "barboach",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/339/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/barboach/"
+  },
+  {
+    "name": "corphish",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/341/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/corphish/"
+  },
+  {
+    "name": "baltoy",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/343/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/baltoy/"
+  },
+  {
+    "name": "lileep",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/345/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lileep/"
+  },
+  {
+    "name": "anorith",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/347/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/anorith/"
+  },
+  {
+    "name": "feebas",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/349/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/feebas/"
+  },
+  {
+    "name": "castform",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/351/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/castform/"
+  },
+  {
+    "name": "kecleon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/352/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kecleon/"
+  },
+  {
+    "name": "shuppet",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/353/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/shuppet/"
+  },
+  {
+    "name": "duskull",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/355/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/duskull/"
+  },
+  {
+    "name": "tropius",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/357/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/tropius/"
+  },
+  {
+    "name": "absol",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/359/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/absol/"
+  },
+  {
+    "name": "wynaut",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/360/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wynaut/"
+  },
+  {
+    "name": "snorunt",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/361/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/snorunt/"
+  },
+  {
+    "name": "spheal",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/363/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/spheal/"
+  },
+  {
+    "name": "clamperl",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/366/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/clamperl/"
+  },
+  {
+    "name": "relicanth",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/369/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/relicanth/"
+  },
+  {
+    "name": "luvdisc",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/370/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/luvdisc/"
+  },
+  {
+    "name": "bagon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/371/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/bagon/"
+  },
+  {
+    "name": "beldum",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/374/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/beldum/"
+  },
+  {
+    "name": "lairon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/305/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/lairon/"
+  },
+  {
+    "name": "aggron",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/306/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/aggron/"
+  },
+  {
+    "name": "medicham",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/308/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/medicham/"
+  },
+  {
+    "name": "manectric",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/310/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/manectric/"
+  },
+  {
+    "name": "roselia",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/315/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/roselia/"
+  },
+  {
+    "name": "swalot",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/317/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/swalot/"
+  },
+  {
+    "name": "sharpedo",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/319/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sharpedo/"
+  },
+  {
+    "name": "wailord",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/321/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/wailord/"
+  },
+  {
+    "name": "camerupt",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/323/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/camerupt/"
+  },
+  {
+    "name": "grumpig",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/326/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/grumpig/"
+  },
+  {
+    "name": "vibrava",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/329/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/vibrava/"
+  },
+  {
+    "name": "flygon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/330/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/flygon/"
+  },
+  {
+    "name": "cacturne",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/332/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cacturne/"
+  },
+  {
+    "name": "altaria",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/334/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/altaria/"
+  },
+  {
+    "name": "whiscash",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/340/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/whiscash/"
+  },
+  {
+    "name": "crawdaunt",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/342/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/crawdaunt/"
+  },
+  {
+    "name": "claydol",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/344/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/claydol/"
+  },
+  {
+    "name": "cradily",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/346/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/cradily/"
+  },
+  {
+    "name": "armaldo",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/348/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/armaldo/"
+  },
+  {
+    "name": "milotic",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/350/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/milotic/"
+  },
+  {
+    "name": "banette",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/354/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/banette/"
+  },
+  {
+    "name": "dusclops",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/356/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/dusclops/"
+  },
+  {
+    "name": "chimecho",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/358/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/chimecho/"
+  },
+  {
+    "name": "glalie",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/362/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/glalie/"
+  },
+  {
+    "name": "sealeo",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/364/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/sealeo/"
+  },
+  {
+    "name": "walrein",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/365/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/walrein/"
+  },
+  {
+    "name": "huntail",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/367/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/huntail/"
+  },
+  {
+    "name": "gorebyss",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/368/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/gorebyss/"
+  },
+  {
+    "name": "shelgon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/372/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/shelgon/"
+  },
+  {
+    "name": "salamence",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/373/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/salamence/"
+  },
+  {
+    "name": "metang",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/375/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/metang/"
+  },
+  {
+    "name": "regirock",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/377/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/regirock/"
+  },
+  {
+    "name": "regice",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/378/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/regice/"
+  },
+  {
+    "name": "registeel",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/379/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/registeel/"
+  },
+  {
+    "name": "latias",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/380/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/latias/"
+  },
+  {
+    "name": "latios",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/381/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/latios/"
+  },
+  {
+    "name": "kyogre",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/382/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/kyogre/"
+  },
+  {
+    "name": "groudon",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/383/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/groudon/"
+  },
+  {
+    "name": "rayquaza",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/384/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/rayquaza/"
+  },
+  {
+    "name": "jirachi",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/385/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/jirachi/"
+  },
+  {
+    "name": "deoxys",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/386/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/deoxys/"
+  },
+  {
+    "name": "delcatty",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/301/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/delcatty/"
+  },
+  {
+    "name": "metagross",
+    "gen": 3,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/376/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/metagross/"
+  }
+]

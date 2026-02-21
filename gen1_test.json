@@ -1,0 +1,32 @@
+[
+  {
+    "name": "bulbasaur",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/1/",
+    "serebii_url": null
+  },
+  {
+    "name": "charmander",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/4/",
+    "serebii_url": null
+  },
+  {
+    "name": "squirtle",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/7/",
+    "serebii_url": null
+  },
+  {
+    "name": "caterpie",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/10/",
+    "serebii_url": null
+  },
+  {
+    "name": "weedle",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/13/",
+    "serebii_url": null
+  }
+]

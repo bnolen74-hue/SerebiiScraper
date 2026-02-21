@@ -1,0 +1,32 @@
+[
+  {
+    "name": "bulbasaur",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/1/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/bulbasaur/"
+  },
+  {
+    "name": "charmander",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/4/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/charmander/"
+  },
+  {
+    "name": "squirtle",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/7/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/squirtle/"
+  },
+  {
+    "name": "caterpie",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/10/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/caterpie/"
+  },
+  {
+    "name": "weedle",
+    "gen": 1,
+    "pokeapi_url": "https://pokeapi.co/api/v2/pokemon-species/13/",
+    "serebii_url": "https://www.serebii.net/pokedex-swsh/weedle/"
+  }
+]
