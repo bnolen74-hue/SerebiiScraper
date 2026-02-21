@@ -107,11 +107,13 @@ python3 -m http.server 8000 --directory web
 
 Open `http://localhost:8000` in a browser and you can query names; the
 page calls the local API on the same origin.  The simple client will display
-sprites, stats, egg moves and the evolution chain by fetching additional
-information from the PokéAPI.  You can also click through to the Serebii
-page if a URL was found.  Styling mimics a retro Pokédex screen; modify
-`web/index.html` and `web/app.js` as desired or port the logic to your
-framework of choice.
+sprites, stats, egg moves and render the full evolution chain.  Evolutionary
+lines are presented as tabs; clicking a stage shows that species’ sprite,
+stats and a comprehensive list of level‑up moves pulled from the PokéAPI.  A
+predictive search bar suggests names as you type by querying `/pokemon-names`.
+You can also click through to the Serebii page if a URL was found.  Styling
+mimics a retro Pokédex screen; modify `web/index.html` and `web/app.js` as
+desired or port the logic to your framework of choice.
 
 For an iPhone (or any Expo/React Native) app, the example component in
 `ui_example.js` demonstrates the same lookup screen.  To build your own

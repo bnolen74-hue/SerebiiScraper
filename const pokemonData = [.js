@@ -2316,7 +2316,3 @@ const pokemonData = [
     "serebii_url": "https://www.serebii.net/pokedex-swsh/metagross/"
   }
 ];
-                    ↑
-              [AI Chat Interface]
-                    ↑
-              [Your Queries]
