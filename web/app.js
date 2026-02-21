@@ -451,38 +451,6 @@ async function buildEvolutionTabs(names, chains = []) {
           
           mainChain.appendChild(chainContainer);
           li.appendChild(mainChain);
-          
-          // Show other species that can learn this move as egg move
-          const otherDetails = document.createElement('details');
-          otherDetails.style.marginLeft = '16px';
-          otherDetails.style.fontSize = '11px';
-          otherDetails.style.color = '#aaa';
-          
-          const otherSummary = document.createElement('summary');
-          otherSummary.textContent = 'Also as egg move...';
-          otherSummary.style.cursor = 'pointer';
-          otherDetails.appendChild(otherSummary);
-          
-          const otherDiv = document.createElement('div');
-          otherDiv.style.padding = '4px';
-          
-          // Find other Pokemon that can learn this move as egg move
-          const otherEggLearners = [];
-          for (const pokemon of mi.learned_by_pokemon) {
-            if (!names.includes(pokemon.name)) {
-              otherEggLearners.push(pokemon.name);
-            }
-          }
-          
-          if (otherEggLearners.length > 0) {
-            otherDiv.textContent = otherEggLearners.slice(0, 12).join(', ') + 
-              (otherEggLearners.length > 12 ? '...' : '');
-          } else {
-            otherDiv.textContent = 'None in gen 1-3';
-          }
-          
-          otherDetails.appendChild(otherDiv);
-          li.appendChild(otherDetails);
           ulEgg.appendChild(li);
         } catch (_e) {
           const li = document.createElement('li');
