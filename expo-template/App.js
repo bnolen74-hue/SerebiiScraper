@@ -3,6 +3,7 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
+import PokedexScreen from './components/PokedexScreen';
 
 function usePressStart() {
   const [loaded] = useFonts({
@@ -41,47 +42,71 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.screenContainer}>
-        <View style={styles.screen}>
-          <View style={styles.searchContainer}>
-            <TextInput
-              placeholder="Enter Pokemon name"
-              value={query}
-              onChangeText={setQuery}
-              style={styles.searchInput}
-              placeholderTextColor="#ccc"
-            />
-            <Animated.View style={{ transform: [{ scale }] }}>
-              <TouchableOpacity
-                style={styles.searchButton}
-                onPressIn={pressIn}
-                onPressOut={pressOut}
-                onPress={() => setTarget(query.trim().toLowerCase())}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.searchButtonText}>Lookup</Text>
-              </TouchableOpacity>
-            </Animated.View>
-          </View>
-          {loading && <Text style={{ color: '#fff' }}>Loading...</Text>}
-          {error && <Text style={{ color: '#f88' }}>{error}</Text>}
-          {data && (
-            <Text style={{ color: '#fff' }}>
-              {data.name} (Gen {data.gen})
-            </Text>
-          )}
+      <PokedexScreen>
+        <View style={styles.searchContainer}>
+          <TextInput
+            placeholder="Enter Pokemon name"
+            value={query}
+            onChangeText={setQuery}
+            style={styles.searchInput}
+            placeholderTextColor="#ccc"
+          />
+          <Animated.View style={{ transform: [{ scale }] }}>
+            <TouchableOpacity
+              style={styles.searchButton}
+              onPressIn={pressIn}
+              onPressOut={pressOut}
+              onPress={() => setTarget(query.trim().toLowerCase())}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.searchButtonText}>Lookup</Text>
+            </TouchableOpacity>
+          </Animated.View>
         </View>
-      </View>
+        {loading && <Text style={{ color: '#fff' }}>Loading...</Text>}
+        {error && <Text style={{ color: '#f88' }}>{error}</Text>}
+        {data && (
+          <Text style={{ color: '#fff' }}>
+            {data.name} (Gen {data.gen})
+          </Text>
+        )}
+      </PokedexScreen>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#a0a0b0' },
-  screenContainer: { backgroundColor: '#a0a0b0', borderRadius: 20, padding: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.3, shadowRadius: 6, elevation: 8 },
-  screen: { backgroundColor: '#0f380f', borderRadius: 12, padding: 16, borderWidth: 2, borderColor: '#6b8c6b', shadowColor: '#8bac0f', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.2, shadowRadius: 8 },
-  searchContainer: { padding: 20 },
-  searchInput: { borderWidth: 1, borderColor: '#8bac0f', padding: 10, marginBottom: 8, color: '#fff', borderRadius: 4, fontFamily: 'PressStart2P', fontSize: 10, backgroundColor: '#0f380f' },
-  searchButton: { backgroundColor: '#8bac0f', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 4, alignItems: 'center', marginBottom: 8 },
-  searchButtonText: { color: '#0f380f', fontFamily: 'PressStart2P', fontSize: 10 },
+  container: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    backgroundColor: '#a0a0b0' 
+  },
+  searchContainer: { 
+    padding: 20 
+  },
+  searchInput: { 
+    borderWidth: 1, 
+    borderColor: '#8bac0f', 
+    padding: 10, 
+    marginBottom: 8, 
+    color: '#fff', 
+    borderRadius: 4, 
+    fontFamily: 'PressStart2P', 
+    fontSize: 10, 
+    backgroundColor: '#0f380f' 
+  },
+  searchButton: { 
+    backgroundColor: '#8bac0f', 
+    paddingVertical: 10, 
+    paddingHorizontal: 16, 
+    borderRadius: 4, 
+    alignItems: 'center', 
+    marginBottom: 8 
+  },
+  searchButtonText: { 
+    color: '#0f380f', 
+    fontFamily: 'PressStart2P', 
+    fontSize: 10 
+  },
 });
