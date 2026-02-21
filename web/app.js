@@ -352,7 +352,7 @@ async function buildEvolutionTabs(names, chains = []) {
       contentDiv.appendChild(lm);
     }
 
-    // egg moves dropdown with easiest breed source
+    // egg moves dropdown with comprehensive breeding chains
     const eggMoves = data.moves.filter(m =>
       m.version_group_details.some(d =>
         d.move_learn_method.name === 'egg' &&
@@ -366,19 +366,85 @@ async function buildEvolutionTabs(names, chains = []) {
       sum.textContent = 'Egg moves';
       detailsEl.appendChild(sum);
       const ulEgg = document.createElement('ul');
-      // fetch move info to determine breeding source
+      
+      // fetch move info and pokemon sprites to build visual breeding chains
       await Promise.all(eggMoves.map(async mv => {
         try {
           const mi = await (await fetch(`https://pokeapi.co/api/v2/move/${mv}`)).json();
           const li = document.createElement('li');
-          let breedFrom = '';
-          for (const p of mi.learned_by_pokemon) {
-            if (names.includes(p.name)) {
-              breedFrom = p.name;
+          li.style.marginBottom = '8px';
+          li.style.display = 'flex';
+          li.style.alignItems = 'center';
+          li.style.gap = '4px';
+          
+          // Add move name
+          const moveName = document.createElement('span');
+          moveName.textContent = mv + ': ';
+          moveName.style.whiteSpace = 'nowrap';
+          li.appendChild(moveName);
+          
+          // Create chain container
+          const chainContainer = document.createElement('div');
+          chainContainer.style.display = 'flex';
+          chainContainer.style.alignItems = 'center';
+          chainContainer.style.gap = '2px';
+          chainContainer.style.flexWrap = 'wrap';
+          
+          // Find which Pokemon in names can naturally learn this move
+          let sourceIdx = null;
+          for (let j = 0; j < names.length; j++) {
+            if (mi.learned_by_pokemon.some(p => p.name === names[j])) {
+              sourceIdx = j;
               break;
             }
           }
-          li.textContent = mv + (breedFrom ? ` (breed from ${breedFrom})` : '');
+          
+          // Build chain with sprites
+          if (sourceIdx !== null) {
+            // Show chain from source to current Pokemon
+            for (let j = sourceIdx; j < names.length; j++) {
+              if (j > sourceIdx) {
+                const arrow = document.createElement('span');
+                arrow.textContent = '←';
+                arrow.style.color = '#8bac0f';
+                chainContainer.appendChild(arrow);
+              }
+              
+              const pokeName = names[j];
+              // Fetch and display sprite
+              try {
+                const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
+                if (spriteResp.ok) {
+                  const spriteData = await spriteResp.json();
+                  const spriteUrl = spriteData.sprites?.front_default;
+                  if (spriteUrl) {
+                    const img = document.createElement('img');
+                    img.src = spriteUrl;
+                    img.style.width = '32px';
+                    img.style.height = '32px';
+                    img.style.imageRendering = 'pixelated';
+                    img.title = pokeName;
+                    chainContainer.appendChild(img);
+                  }
+                }
+              } catch (_) {
+                // Fallback to text if sprite fetch fails
+                const text = document.createElement('span');
+                text.textContent = pokeName;
+                text.style.fontSize = '10px';
+                chainContainer.appendChild(text);
+              }
+            }
+          } else {
+            // Source not in evolution chain, just show move name
+            const text = document.createElement('span');
+            text.textContent = '(external source)';
+            text.style.fontSize = '10px';
+            text.style.color = '#888';
+            chainContainer.appendChild(text);
+          }
+          
+          li.appendChild(chainContainer);
           ulEgg.appendChild(li);
         } catch (_e) {
           const li = document.createElement('li');
