@@ -247,6 +247,8 @@ const GEN1_3_GROUPS = new Set([
   'ruby-sapphire','emerald','firered-leafgreen' // gen3
 ]);
 
+const GBA_GROUPS = new Set(['ruby-sapphire', 'emerald', 'firered-leafgreen']);
+
 const VERSION_GROUP_NAMES = {
   'red-blue': 'Red/Blue',
   'yellow': 'Yellow',
@@ -359,11 +361,13 @@ async function buildEvolutionTabs(names, chains = []) {
       const lm = document.createElement('div');
       lm.innerHTML = '<strong>Level-up moves:</strong>';
       
-      // Sort version groups by generation order
-      const sortedVersions = Object.keys(movesByLevelByVersion).sort((a, b) => {
-        const versionOrder = ['red-blue','yellow','gold-silver','crystal','ruby-sapphire','emerald','firered-leafgreen'];
-        return versionOrder.indexOf(a) - versionOrder.indexOf(b);
-      });
+      // Filter to GBA versions only and sort
+      const sortedVersions = Object.keys(movesByLevelByVersion)
+        .filter(v => GBA_GROUPS.has(v))
+        .sort((a, b) => {
+          const versionOrder = ['ruby-sapphire','emerald','firered-leafgreen'];
+          return versionOrder.indexOf(a) - versionOrder.indexOf(b);
+        });
       
       // Create tabs for different versions
       const versionTabs = document.createElement('div');
