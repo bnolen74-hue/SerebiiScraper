@@ -342,12 +342,63 @@ async function buildEvolutionTabs(names, chains = []) {
       const lm = document.createElement('div');
       lm.innerHTML = '<strong>Level-up moves:</strong>';
       const ulm = document.createElement('ul');
-      levels.forEach(lvl => {
-        const names = Array.from(movesByLevel[lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
-        const li = document.createElement('li');
-        li.textContent = `Lvl ${lvl}: ${names.join(', ')}`;
-        ulm.appendChild(li);
-      });
+      
+      for (const lvl of levels) {
+        const moveNames = Array.from(movesByLevel[lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
+        for (const moveName of moveNames) {
+          const li = document.createElement('li');
+          li.style.marginBottom = '4px';
+          
+          // Main move info
+          const main = document.createElement('div');
+          main.textContent = `Lvl ${lvl}: ${moveName}`;
+          li.appendChild(main);
+          
+          // Show other species that can learn this move
+          const detailsEl = document.createElement('details');
+          detailsEl.style.marginLeft = '16px';
+          detailsEl.style.fontSize = '11px';
+          detailsEl.style.color = '#aaa';
+          
+          const summary = document.createElement('summary');
+          summary.textContent = 'Also learned by...';
+          summary.style.cursor = 'pointer';
+          detailsEl.appendChild(summary);
+          
+          const otherSpeciesDiv = document.createElement('div');
+          otherSpeciesDiv.style.padding = '4px';
+          
+          // Fetch move data to find other learners
+          (async () => {
+            try {
+              const moveResp = await fetch(`https://pokeapi.co/api/v2/move/${moveName}`);
+              if (moveResp.ok) {
+                const moveData = await moveResp.json();
+                const otherLearners = [];
+                
+                for (const pokemon of moveData.learned_by_pokemon) {
+                  if (!names.includes(pokemon.name)) {
+                    otherLearners.push(pokemon.name);
+                  }
+                }
+                
+                if (otherLearners.length > 0) {
+                  otherSpeciesDiv.textContent = otherLearners.slice(0, 8).join(', ') + 
+                    (otherLearners.length > 8 ? '...' : '');
+                } else {
+                  otherSpeciesDiv.textContent = 'None in gen 1-3';
+                }
+              }
+            } catch (_) {
+              otherSpeciesDiv.textContent = 'Unable to load';
+            }
+          })();
+          
+          detailsEl.appendChild(otherSpeciesDiv);
+          li.appendChild(detailsEl);
+          ulm.appendChild(li);
+        }
+      }
       lm.appendChild(ulm);
       contentDiv.appendChild(lm);
     }
@@ -372,16 +423,20 @@ async function buildEvolutionTabs(names, chains = []) {
         try {
           const mi = await (await fetch(`https://pokeapi.co/api/v2/move/${mv}`)).json();
           const li = document.createElement('li');
-          li.style.marginBottom = '8px';
-          li.style.display = 'flex';
-          li.style.alignItems = 'center';
-          li.style.gap = '4px';
+          li.style.marginBottom = '12px';
+          
+          // Main breeding chain
+          const mainChain = document.createElement('div');
+          mainChain.style.display = 'flex';
+          mainChain.style.alignItems = 'center';
+          mainChain.style.gap = '4px';
+          mainChain.style.marginBottom = '4px';
           
           // Add move name
           const moveName = document.createElement('span');
           moveName.textContent = mv + ': ';
           moveName.style.whiteSpace = 'nowrap';
-          li.appendChild(moveName);
+          mainChain.appendChild(moveName);
           
           // Create chain container
           const chainContainer = document.createElement('div');
@@ -428,7 +483,6 @@ async function buildEvolutionTabs(names, chains = []) {
                   }
                 }
               } catch (_) {
-                // Fallback to text if sprite fetch fails
                 const text = document.createElement('span');
                 text.textContent = pokeName;
                 text.style.fontSize = '10px';
@@ -436,7 +490,6 @@ async function buildEvolutionTabs(names, chains = []) {
               }
             }
           } else {
-            // Source not in evolution chain, just show move name
             const text = document.createElement('span');
             text.textContent = '(external source)';
             text.style.fontSize = '10px';
@@ -444,7 +497,40 @@ async function buildEvolutionTabs(names, chains = []) {
             chainContainer.appendChild(text);
           }
           
-          li.appendChild(chainContainer);
+          mainChain.appendChild(chainContainer);
+          li.appendChild(mainChain);
+          
+          // Show other species that can learn this move as egg move
+          const otherDetails = document.createElement('details');
+          otherDetails.style.marginLeft = '16px';
+          otherDetails.style.fontSize = '11px';
+          otherDetails.style.color = '#aaa';
+          
+          const otherSummary = document.createElement('summary');
+          otherSummary.textContent = 'Also as egg move...';
+          otherSummary.style.cursor = 'pointer';
+          otherDetails.appendChild(otherSummary);
+          
+          const otherDiv = document.createElement('div');
+          otherDiv.style.padding = '4px';
+          
+          // Find other Pokemon that can learn this move as egg move
+          const otherEggLearners = [];
+          for (const pokemon of mi.learned_by_pokemon) {
+            if (!names.includes(pokemon.name)) {
+              otherEggLearners.push(pokemon.name);
+            }
+          }
+          
+          if (otherEggLearners.length > 0) {
+            otherDiv.textContent = otherEggLearners.slice(0, 12).join(', ') + 
+              (otherEggLearners.length > 12 ? '...' : '');
+          } else {
+            otherDiv.textContent = 'None in gen 1-3';
+          }
+          
+          otherDetails.appendChild(otherDiv);
+          li.appendChild(otherDetails);
           ulEgg.appendChild(li);
         } catch (_e) {
           const li = document.createElement('li');
