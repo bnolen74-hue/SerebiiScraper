@@ -13,6 +13,7 @@ function usePressStart() {
 }
 
 export default function App() {
+  const apiBase = process.env.EXPO_PUBLIC_API_BASE || 'http://10.0.0.188:3000';
   const [query, setQuery] = React.useState('');
   const [target, setTarget] = React.useState('');
   const [data, setData] = React.useState(null);
@@ -26,7 +27,7 @@ export default function App() {
   React.useEffect(() => {
     if (!target) return;
     setLoading(true);
-    fetch(`http://10.0.2.2:3000/pokemon/${encodeURIComponent(target)}`) // use emulator host or adjust
+    fetch(`${apiBase}/pokemon/${encodeURIComponent(target)}`) // use LAN host for Expo Go
       .then((r) => r.json())
       .then((j) => {
         setData(j);

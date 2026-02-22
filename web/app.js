@@ -1,4 +1,34 @@
-const BACKEND = 'http://localhost:3000'; // change if your API runs elsewhere
+const BACKEND = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:3000'
+  : `http://${location.hostname}:3000`;
+
+// Fetch Gen 5 animated sprite from PokeAPI with fallback
+// Uses Black/White animated sprites showing idle movement
+async function fetchGen5AnimatedSprite(pokemonUrl) {
+  try {
+    const resp = await fetch(pokemonUrl);
+    if (resp.ok) {
+      const data = await resp.json();
+      // Try Gen 5 animated sprite first (idle movement from Black/White)
+      const gen5Animated = data.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default;
+      if (gen5Animated) return gen5Animated;
+      
+      // Fallback to static Gen 5 sprite
+      const gen5Static = data.sprites?.versions?.['generation-v']?.['black-white']?.front_default;
+      if (gen5Static) return gen5Static;
+      
+      // Fallback to official artwork
+      const officialArt = data.sprites?.other?.['official-artwork']?.front_default;
+      if (officialArt) return officialArt;
+      
+      // Last resort
+      return data.sprites?.front_default;
+    }
+  } catch (e) {
+    // Fallback to front_default
+  }
+  return null;
+}
 
 async function lookup(name) {
   const out = document.getElementById('output');
@@ -34,6 +64,8 @@ async function displayEntry(entry) {
     out.appendChild(a);
   }
 
+  let spriteImg = null;
+
   if (entry.pokeapi_url) {
     // fetch the Pokemon data (not species), but we will also load chain members later
     let pokeData;
@@ -42,27 +74,35 @@ async function displayEntry(entry) {
     } catch (_){ pokeData = null; }
 
     if (pokeData) {
-      // sprite and stats are shown in the individual tab later; show just sprite for selected entry here
-      if (pokeData.sprites && pokeData.sprites.front_default) {
-        const img = document.createElement('img');
-        img.src = pokeData.sprites.front_default;
-        img.style.maxWidth = '120px';
-        out.appendChild(img);
+      // Create a sprite image element that will be updated when tabs are clicked
+      const spriteUrl = pokeData.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default 
+        || pokeData.sprites?.versions?.['generation-v']?.['black-white']?.front_default
+        || pokeData.sprites?.other?.['official-artwork']?.front_default
+        || pokeData.sprites?.front_default;
+      spriteImg = document.createElement('img');
+      if (spriteUrl) {
+        spriteImg.src = spriteUrl;
+        spriteImg.style.maxWidth = '140px';
+        spriteImg.style.imageRendering = 'pixelated';
       }
+      out.appendChild(spriteImg);
     }
 
     // fetch species to get evolution chain and render the chain with levels
     try {
       const species = await (await fetch(entry.pokeapi_url)).json();
+      let names = [entry.name]; // Start with current Pokemon
+      let chains = [];
+      
       if (species.evolution_chain && species.evolution_chain.url) {
         const evo = await (await fetch(species.evolution_chain.url)).json();
-        let chains = collectEvolutionChains(evo.chain);
+        chains = collectEvolutionChains(evo.chain);
         
         // Filter chains to only include gen 1-3 Pokemon
         chains = await filterChainsToGen1to3(chains);
         
         // Get names from filtered chains only
-        const names = [];
+        names = [];
         chains.forEach(chain => {
           chain.forEach(stage => {
             if (!names.includes(stage.name)) {
@@ -70,12 +110,14 @@ async function displayEntry(entry) {
             }
           });
         });
-        
-        if (names.length) {
-          // show tabs for individual details (stats, moves)
-          await buildEvolutionTabs(names, chains);
-        }
       }
+      
+      // Always load stats/moves, even for single Pokemon with no evolution
+      if (names.length === 0) {
+        names = [entry.name];
+      }
+      
+      await buildEvolutionTabs(names, chains, spriteImg);
     } catch (_){ /* ignore */ }
   }
 }
@@ -259,7 +301,28 @@ const VERSION_GROUP_NAMES = {
   'firered-leafgreen': 'FireRed/LeafGreen'
 };
 
-async function buildEvolutionTabs(names, chains = []) {
+const TYPE_COLORS = {
+  'normal': { bg: '#a8a878', text: '#fff' },
+  'fire': { bg: '#f08030', text: '#fff' },
+  'water': { bg: '#6890f0', text: '#fff' },
+  'grass': { bg: '#78c850', text: '#fff' },
+  'electric': { bg: '#f8d030', text: '#000' },
+  'ice': { bg: '#98d8d8', text: '#000' },
+  'fighting': { bg: '#c03028', text: '#fff' },
+  'poison': { bg: '#a040a0', text: '#fff' },
+  'ground': { bg: '#e0c068', text: '#000' },
+  'flying': { bg: '#a890f0', text: '#fff' },
+  'psychic': { bg: '#f85888', text: '#fff' },
+  'bug': { bg: '#a8b820', text: '#fff' },
+  'rock': { bg: '#b8a038', text: '#fff' },
+  'ghost': { bg: '#705898', text: '#fff' },
+  'dragon': { bg: '#7038f8', text: '#fff' },
+  'dark': { bg: '#705848', text: '#fff' },
+  'steel': { bg: '#b8b8d0', text: '#000' },
+  'fairy': { bg: '#ee99ac', text: '#000' }
+};
+
+async function buildEvolutionTabs(names, chains = [], spriteImg = null) {
   const out = document.getElementById('output');
   const tabsDiv = document.createElement('div');
   tabsDiv.className = 'tabs';
@@ -308,6 +371,25 @@ async function buildEvolutionTabs(names, chains = []) {
   out.appendChild(tabsDiv);
   out.appendChild(contentDiv);
 
+  let isShiny = false;
+
+  function updateSprite(data) {
+    if (spriteImg && data) {
+      const spriteUrl = isShiny
+        ? (data.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_shiny 
+          || data.sprites?.versions?.['generation-v']?.['black-white']?.front_shiny
+          || data.sprites?.other?.['official-artwork']?.front_shiny
+          || data.sprites?.front_shiny)
+        : (data.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default 
+          || data.sprites?.versions?.['generation-v']?.['black-white']?.front_default
+          || data.sprites?.other?.['official-artwork']?.front_default
+          || data.sprites?.front_default);
+      if (spriteUrl) {
+        spriteImg.src = spriteUrl;
+      }
+    }
+  }
+
   async function showTab(i) {
     // clear existing content
     contentDiv.innerHTML = '';
@@ -316,23 +398,153 @@ async function buildEvolutionTabs(names, chains = []) {
       contentDiv.textContent = 'data unavailable';
       return;
     }
-    // sprite
-    if (data.sprites && data.sprites.front_default) {
-      const img = document.createElement('img');
-      img.src = data.sprites.front_default;
-      img.style.maxWidth = '120px';
-      contentDiv.appendChild(img);
+    
+    // Add shiny toggle button
+    const spriteControlDiv = document.createElement('div');
+    spriteControlDiv.style.marginBottom = '8px';
+    spriteControlDiv.style.display = 'flex';
+    spriteControlDiv.style.gap = '4px';
+    spriteControlDiv.style.alignItems = 'center';
+    
+    const shinyToggle = document.createElement('button');
+    shinyToggle.textContent = isShiny ? '✦ Shiny' : '✧ Normal';
+    shinyToggle.style.padding = '4px 8px';
+    shinyToggle.style.fontSize = '9px';
+    shinyToggle.style.background = isShiny ? '#f8d030' : '#8bac0f';
+    shinyToggle.style.color = isShiny ? '#000' : '#0f380f';
+    shinyToggle.style.border = '1px solid #666';
+    shinyToggle.style.borderRadius = '4px';
+    shinyToggle.style.cursor = 'pointer';
+    shinyToggle.style.width = 'auto';
+    shinyToggle.style.padding = '4px 12px';
+    shinyToggle.onclick = (e) => {
+      e.preventDefault();
+      isShiny = !isShiny;
+      shinyToggle.textContent = isShiny ? '✦ Shiny' : '✧ Normal';
+      shinyToggle.style.background = isShiny ? '#f8d030' : '#8bac0f';
+      shinyToggle.style.color = isShiny ? '#000' : '#0f380f';
+      updateSprite(data);
+    };
+    spriteControlDiv.appendChild(shinyToggle);
+    contentDiv.appendChild(spriteControlDiv);
+    
+    // Update the top sprite element
+    updateSprite(data);
+    
+    // Types
+    if (data.types && data.types.length > 0) {
+      const typesDiv = document.createElement('div');
+      typesDiv.style.marginBottom = '12px';
+      const typesLabel = document.createElement('strong');
+      typesLabel.textContent = 'Type:';
+      typesDiv.appendChild(typesLabel);
+      const typesList = document.createElement('div');
+      typesList.style.marginTop = '4px';
+      data.types.forEach((t, idx) => {
+        const typeTag = document.createElement('span');
+        typeTag.textContent = t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1);
+        const colors = TYPE_COLORS[t.type.name] || { bg: '#6b8c6b', text: '#fff' };
+        typeTag.style.display = 'inline-block';
+        typeTag.style.padding = '4px 8px';
+        typeTag.style.background = colors.bg;
+        typeTag.style.color = colors.text;
+        typeTag.style.borderRadius = '4px';
+        typeTag.style.fontSize = '10px';
+        typeTag.style.marginRight = idx < data.types.length - 1 ? '6px' : '0';
+        typesList.appendChild(typeTag);
+      });
+      typesDiv.appendChild(typesList);
+      contentDiv.appendChild(typesDiv);
     }
+    
     const statDiv = document.createElement('div');
     statDiv.innerHTML = '<strong>Stats:</strong>';
     const ul = document.createElement('ul');
+    let totalStats = 0;
     data.stats.forEach(s => {
       const li = document.createElement('li');
       li.textContent = `${s.stat.name}: ${s.base_stat}`;
       ul.appendChild(li);
+      totalStats += s.base_stat;
     });
     statDiv.appendChild(ul);
+    
+    const totalDiv = document.createElement('div');
+    totalDiv.style.marginTop = '4px';
+    totalDiv.style.paddingTop = '8px';
+    totalDiv.style.borderTop = '1px solid #6b8c6b';
+    totalDiv.textContent = `Total: ${totalStats}`;
+    totalDiv.style.fontSize = '11px';
+    totalDiv.style.fontWeight = 'bold';
+    statDiv.appendChild(totalDiv);
+    
     contentDiv.appendChild(statDiv);
+
+    // Held items (filtered to gen1-3)
+    const heldItemsByVersion = {};
+    if (data.held_items && data.held_items.length > 0) {
+      data.held_items.forEach(item => {
+        item.version_details.forEach(vd => {
+          if (GEN1_3_GROUPS.has(vd.version.name) && vd.rarity > 0) {
+            const versionName = vd.version.name;
+            if (!heldItemsByVersion[versionName]) {
+              heldItemsByVersion[versionName] = [];
+            }
+            heldItemsByVersion[versionName].push({
+              name: item.item.name,
+              rarity: vd.rarity
+            });
+          }
+        });
+      });
+    }
+
+    if (Object.keys(heldItemsByVersion).length > 0) {
+      const itemDiv = document.createElement('div');
+      itemDiv.innerHTML = '<strong>Held Items:</strong>';
+      itemDiv.style.marginTop = '12px';
+      
+      const versions = Object.keys(heldItemsByVersion).sort();
+      const itemTable = document.createElement('table');
+      
+      const headerRow = document.createElement('tr');
+      const nameHeader = document.createElement('th');
+      nameHeader.textContent = 'Item';
+      headerRow.appendChild(nameHeader);
+      
+      versions.forEach(v => {
+        const th = document.createElement('th');
+        th.textContent = VERSION_GROUP_NAMES[v] || v;
+        headerRow.appendChild(th);
+      });
+      itemTable.appendChild(headerRow);
+      
+      const allItems = new Set();
+      Object.values(heldItemsByVersion).forEach(items => {
+        items.forEach(item => allItems.add(item.name));
+      });
+      
+      Array.from(allItems).sort().forEach(itemName => {
+        const row = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        nameCell.textContent = itemName;
+        nameCell.style.textAlign = 'left';
+        row.appendChild(nameCell);
+        
+        versions.forEach(v => {
+          const cell = document.createElement('td');
+          const item = heldItemsByVersion[v].find(i => i.name === itemName);
+          cell.textContent = item ? `${item.rarity}%` : '-';
+          cell.style.textAlign = 'center';
+          row.appendChild(cell);
+        });
+        
+        itemTable.appendChild(row);
+      });
+      
+      itemDiv.appendChild(itemTable);
+      contentDiv.appendChild(itemDiv);
+    }
 
     // level up moves (filtered to gen1-3)
     const movesByLevelByVersion = {};
@@ -358,75 +570,155 @@ async function buildEvolutionTabs(names, chains = []) {
     });
     
     if (Object.keys(movesByLevelByVersion).length > 0) {
-      const lm = document.createElement('div');
-      lm.innerHTML = '<strong>Level-up moves:</strong>';
-      
-      // Filter to GBA versions only and sort
-      const sortedVersions = Object.keys(movesByLevelByVersion)
+      // Check if there are significant differences between versions
+      const gbaVersions = Object.keys(movesByLevelByVersion)
         .filter(v => GBA_GROUPS.has(v))
         .sort((a, b) => {
           const versionOrder = ['ruby-sapphire','emerald','firered-leafgreen'];
           return versionOrder.indexOf(a) - versionOrder.indexOf(b);
         });
       
-      // Create tabs for different versions
-      const versionTabs = document.createElement('div');
-      versionTabs.style.display = 'flex';
-      versionTabs.style.gap = '4px';
-      versionTabs.style.marginBottom = '12px';
-      versionTabs.style.borderBottom = '1px solid #666';
-      
-      const versionContents = document.createElement('div');
-      
-      sortedVersions.forEach((versionGroup, vIdx) => {
-        const btn = document.createElement('button');
-        btn.textContent = VERSION_GROUP_NAMES[versionGroup];
-        btn.style.padding = '4px 8px';
-        btn.style.fontSize = '12px';
-        btn.style.cursor = 'pointer';
-        btn.style.background = vIdx === 0 ? '#8bac0f' : '#333';
-        btn.style.color = '#fff';
-        btn.style.border = 'none';
-        btn.style.borderRadius = '0';
-        
-        btn.addEventListener('click', () => {
-          // Hide all contents
-          Array.from(versionContents.querySelectorAll('.version-moves')).forEach(el => el.style.display = 'none');
-          // Show selected
-          document.getElementById(`moves-${vIdx}`).style.display = 'block';
-          // Update button styles
-          Array.from(versionTabs.querySelectorAll('button')).forEach(b => {
-            b.style.background = '#333';
+      // Helper function to get all moves for a version
+      const getMovesForVersion = (version) => {
+        const moves = new Map();
+        Object.keys(movesByLevelByVersion[version]).forEach(lvl => {
+          movesByLevelByVersion[version][lvl].forEach(move => {
+            moves.set(move, parseInt(lvl));
           });
-          btn.style.background = '#8bac0f';
+        });
+        return moves;
+      };
+      
+      // Check if there are serious changes between versions
+      let hasSeriousChanges = false;
+      if (gbaVersions.length > 1) {
+        const firstVersionMoves = getMovesForVersion(gbaVersions[0]);
+        for (let i = 1; i < gbaVersions.length; i++) {
+          const currentVersionMoves = getMovesForVersion(gbaVersions[i]);
+          // Check if any move has different level or is missing
+          for (const [move, level] of firstVersionMoves) {
+            if (!currentVersionMoves.has(move) || currentVersionMoves.get(move) !== level) {
+              hasSeriousChanges = true;
+              break;
+            }
+          }
+          // Check if current version has moves not in first version
+          for (const move of currentVersionMoves.keys()) {
+            if (!firstVersionMoves.has(move)) {
+              hasSeriousChanges = true;
+              break;
+            }
+          }
+          if (hasSeriousChanges) break;
+        }
+      }
+      
+      const lm = document.createElement('div');
+      lm.innerHTML = '<strong>Level-up moves:</strong>';
+      lm.style.marginTop = '12px';
+      
+      // Create a container for tabs and content
+      const tabContainer = document.createElement('div');
+      tabContainer.style.display = 'flex';
+      tabContainer.style.flexDirection = 'column';
+      tabContainer.style.gap = '12px';
+      tabContainer.style.marginTop = '12px';
+      
+      // Filter to GBA versions only
+      const sortedVersions = gbaVersions;
+      
+      // Only create tabs if there are serious changes between versions
+      if (hasSeriousChanges && sortedVersions.length > 1) {
+        // Create tabs for different versions
+        const versionTabs = document.createElement('div');
+        versionTabs.style.display = 'flex';
+        versionTabs.style.flexDirection = 'column';
+        versionTabs.style.gap = '4px';
+        versionTabs.style.marginBottom = '12px';
+        versionTabs.style.minWidth = '150px';
+        
+        const versionContents = document.createElement('div');
+        versionContents.style.width = '100%';
+        
+        sortedVersions.forEach((versionGroup, vIdx) => {
+          const btn = document.createElement('button');
+          btn.textContent = VERSION_GROUP_NAMES[versionGroup];
+          btn.style.width = '100%';
+          btn.style.padding = '8px 12px';
+          btn.style.fontSize = '12px';
+          btn.style.cursor = 'pointer';
+          btn.style.background = vIdx === 0 ? '#8bac0f' : '#333';
+          btn.style.color = '#fff';
+          btn.style.border = '1px solid #666';
+          btn.style.borderRadius = '4px';
+          btn.style.textAlign = 'left';
+          btn.style.transition = 'all 0.1s';
+          
+          btn.addEventListener('click', () => {
+            // Hide all contents
+            Array.from(versionContents.querySelectorAll('.version-moves')).forEach(el => el.style.display = 'none');
+            // Show selected
+            document.getElementById(`moves-${vIdx}`).style.display = 'block';
+            // Update button styles
+            Array.from(versionTabs.querySelectorAll('button')).forEach(b => {
+              b.style.background = '#333';
+            });
+            btn.style.background = '#8bac0f';
+          });
+          
+          versionTabs.appendChild(btn);
+          
+          // Create content for this version
+          const versionDiv = document.createElement('div');
+          versionDiv.id = `moves-${vIdx}`;
+          versionDiv.className = 'version-moves';
+          versionDiv.style.display = vIdx === 0 ? 'block' : 'none';
+          
+          const ulm = document.createElement('ul');
+          const levels = Object.keys(movesByLevelByVersion[versionGroup]).map(Number).sort((a,b)=>a-b);
+          for (const lvl of levels) {
+            const moveNames = Array.from(movesByLevelByVersion[versionGroup][lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
+            for (const moveName of moveNames) {
+              const li = document.createElement('li');
+              li.textContent = `Lvl ${lvl}: ${moveName}`;
+              ulm.appendChild(li);
+            }
+          }
+          
+          versionDiv.appendChild(ulm);
+          versionContents.appendChild(versionDiv);
         });
         
-        versionTabs.appendChild(btn);
-        
-        // Create content for this version
-        const versionDiv = document.createElement('div');
-        versionDiv.id = `moves-${vIdx}`;
-        versionDiv.className = 'version-moves';
-        versionDiv.style.display = vIdx === 0 ? 'block' : 'none';
-        
+        tabContainer.appendChild(versionTabs);
+        tabContainer.appendChild(versionContents);
+        lm.appendChild(tabContainer);
+      } else {
+        // No serious changes - show all moves combined without tabs
         const ulm = document.createElement('ul');
-        const levels = Object.keys(movesByLevelByVersion[versionGroup]).map(Number).sort((a,b)=>a-b);
+        const allMoves = new Map();
+        sortedVersions.forEach(versionGroup => {
+          const levels = Object.keys(movesByLevelByVersion[versionGroup]).map(Number).sort((a,b)=>a-b);
+          for (const lvl of levels) {
+            if (!allMoves.has(lvl)) {
+              allMoves.set(lvl, new Set());
+            }
+            movesByLevelByVersion[versionGroup][lvl].forEach(move => {
+              allMoves.get(lvl).add(move);
+            });
+          }
+        });
         
-        for (const lvl of levels) {
-          const moveNames = Array.from(movesByLevelByVersion[versionGroup][lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
+        Array.from(allMoves.keys()).sort((a,b)=>a-b).forEach(lvl => {
+          const moveNames = Array.from(allMoves.get(lvl)).sort().map(n=>n.replace(/\[|\]/g,''));
           for (const moveName of moveNames) {
             const li = document.createElement('li');
             li.textContent = `Lvl ${lvl}: ${moveName}`;
             ulm.appendChild(li);
           }
-        }
+        });
         
-        versionDiv.appendChild(ulm);
-        versionContents.appendChild(versionDiv);
-      });
-      
-      lm.appendChild(versionTabs);
-      lm.appendChild(versionContents);
+        lm.appendChild(ulm);
+      }
       contentDiv.appendChild(lm);
     }
 
@@ -442,164 +734,25 @@ async function buildEvolutionTabs(names, chains = []) {
         }
       });
     });
+
     const eggMoves = Array.from(eggMovesSet);
+    const eggDiv = document.createElement('div');
+    const detailsEl = document.createElement('details');
+    const sum = document.createElement('summary');
+    sum.textContent = 'Egg moves';
+    detailsEl.appendChild(sum);
+    const ulEgg = document.createElement('ul');
+
     if (eggMoves.length) {
-      const eggDiv = document.createElement('div');
-      const detailsEl = document.createElement('details');
-      const sum = document.createElement('summary');
-      sum.textContent = 'Egg moves';
-      detailsEl.appendChild(sum);
-      const ulEgg = document.createElement('ul');
-      
-      // fetch move info and pokemon sprites to build visual breeding chains
-      await Promise.all(eggMoves.map(async mv => {
-        try {
-          const mi = await (await fetch(`https://pokeapi.co/api/v2/move/${mv}`)).json();
-          const li = document.createElement('li');
-          li.style.marginBottom = '12px';
-          
-          // Main breeding chain
-          const mainChain = document.createElement('div');
-          mainChain.style.display = 'flex';
-          mainChain.style.alignItems = 'center';
-          mainChain.style.gap = '4px';
-          mainChain.style.marginBottom = '4px';
-          
-          // Add move name
-          const moveName = document.createElement('span');
-          moveName.textContent = mv + ': ';
-          moveName.style.whiteSpace = 'nowrap';
-          mainChain.appendChild(moveName);
-          
-          // Create chain container
-          const chainContainer = document.createElement('div');
-          chainContainer.style.display = 'flex';
-          chainContainer.style.alignItems = 'center';
-          chainContainer.style.gap = '2px';
-          chainContainer.style.flexWrap = 'wrap';
-          
-          // Find which Pokemon in names can naturally learn this move
-          let sourceIdx = null;
-          for (let j = 0; j < names.length; j++) {
-            if (mi.learned_by_pokemon.some(p => p.name === names[j])) {
-              sourceIdx = j;
-              break;
-            }
-          }
-          
-          // Build chain with sprites
-          if (sourceIdx !== null) {
-            // Show chain from source to current Pokemon
-            for (let j = sourceIdx; j < names.length; j++) {
-              if (j > sourceIdx) {
-                const arrow = document.createElement('span');
-                arrow.textContent = '←';
-                arrow.style.color = '#8bac0f';
-                chainContainer.appendChild(arrow);
-              }
-              
-              const pokeName = names[j];
-              // Fetch and display sprite
-              try {
-                const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
-                if (spriteResp.ok) {
-                  const spriteData = await spriteResp.json();
-                  const spriteUrl = spriteData.sprites?.front_default;
-                  if (spriteUrl) {
-                    const img = document.createElement('img');
-                    img.src = spriteUrl;
-                    img.style.width = '32px';
-                    img.style.height = '32px';
-                    img.style.imageRendering = 'pixelated';
-                    img.title = pokeName;
-                    chainContainer.appendChild(img);
-                  }
-                }
-              } catch (_) {
-                const text = document.createElement('span');
-                text.textContent = pokeName;
-                text.style.fontSize = '10px';
-                chainContainer.appendChild(text);
-              }
-            }
-          } else {
-            // No direct learner in evolution chain - show all other parents that can breed this move
-            const otherParents = [];
-            for (const pokemon of mi.learned_by_pokemon) {
-              if (!names.includes(pokemon.name)) {
-                otherParents.push(pokemon.name);
-              }
-            }
-            
-            if (otherParents.length > 0) {
-              const text = document.createElement('span');
-              text.textContent = 'Breed from: ';
-              text.style.whiteSpace = 'nowrap';
-              chainContainer.appendChild(text);
-              
-              // Fetch and display sprites for other parents
-              for (let p = 0; p < Math.min(otherParents.length, 4); p++) {
-                const parentName = otherParents[p];
-                try {
-                  const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${parentName}`);
-                  if (spriteResp.ok) {
-                    const spriteData = await spriteResp.json();
-                    const spriteUrl = spriteData.sprites?.front_default;
-                    if (spriteUrl) {
-                      const img = document.createElement('img');
-                      img.src = spriteUrl;
-                      img.style.width = '32px';
-                      img.style.height = '32px';
-                      img.style.imageRendering = 'pixelated';
-                      img.title = parentName;
-                      chainContainer.appendChild(img);
-                    }
-                  }
-                } catch (_) {
-                  const text = document.createElement('span');
-                  text.textContent = parentName;
-                  text.style.fontSize = '10px';
-                  chainContainer.appendChild(text);
-                }
-              }
-              
-              if (otherParents.length > 4) {
-                const moreText = document.createElement('span');
-                moreText.textContent = `+${otherParents.length - 4}`;
-                moreText.style.fontSize = '10px';
-                moreText.style.color = '#8bac0f';
-                chainContainer.appendChild(moreText);
-              }
-            } else {
-              const text = document.createElement('span');
-              text.textContent = '(no gen 1-3 sources)';
-              text.style.fontSize = '10px';
-              text.style.color = '#888';
-              chainContainer.appendChild(text);
-            }
-          }
-          
-          mainChain.appendChild(chainContainer);
-          li.appendChild(mainChain);
-          ulEgg.appendChild(li);
-        } catch (_e) {
-          const li = document.createElement('li');
-          li.textContent = mv;
-          ulEgg.appendChild(li);
-        }
-      }));
-      detailsEl.appendChild(ulEgg);
-      
-      // Add breed chains from egg groups to the same section
+      let breedChainsMap = {};
       try {
         const currentSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${data.name}`;
         const speciesResp = await fetch(currentSpeciesUrl);
         if (speciesResp.ok) {
           const speciesData = await speciesResp.json();
           const eggGroups = speciesData.egg_groups?.map(g => g.name) || [];
-          
+
           if (eggGroups.length > 0) {
-            // Fetch all pokemon in these egg groups
             const pokemonInGroups = new Set();
             for (const group of eggGroups) {
               try {
@@ -612,27 +765,23 @@ async function buildEvolutionTabs(names, chains = []) {
                 }
               } catch (_) {}
             }
-            
-            // Remove current Pokemon and evolution chain from the list
+
             pokemonInGroups.delete(data.name);
             for (const name of names) {
               pokemonInGroups.delete(name);
             }
-            
+
             if (pokemonInGroups.size > 0) {
-              // Check each egg move to see if egg group Pokemon learn it by level-up
-              const breedChainsMap = {};
-              
+              breedChainsMap = {};
+
               for (const mv of eggMoves) {
                 const breedSources = [];
-                
+
                 for (const otherPoke of pokemonInGroups) {
                   try {
-                    // Get the other Pokemon's move data
                     const otherResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${otherPoke}`);
                     if (otherResp.ok) {
                       const otherData = await otherResp.json();
-                      // Check if it can learn this move by level-up in GBA games
                       const canLearn = otherData.moves.some(m => 
                         m.move.name === mv &&
                         m.version_group_details.some(d =>
@@ -641,112 +790,119 @@ async function buildEvolutionTabs(names, chains = []) {
                           GBA_GROUPS.has(d.version_group.name)
                         )
                       );
-                      
+
                       if (canLearn) {
                         breedSources.push(otherPoke);
                       }
                     }
                   } catch (_) {}
                 }
-                
+
                 if (breedSources.length > 0) {
                   breedChainsMap[mv] = breedSources;
-                }
-              }
-              
-              if (Object.keys(breedChainsMap).length > 0) {
-                // Add a separator
-                const separatorLi = document.createElement('li');
-                separatorLi.style.borderTop = '1px solid #666';
-                separatorLi.style.marginTop = '12px';
-                separatorLi.style.paddingTop = '12px';
-                separatorLi.style.listStyle = 'none';
-                ulEgg.appendChild(separatorLi);
-                
-                // Add breed chains from egg groups
-                for (const [move, sources] of Object.entries(breedChainsMap)) {
-                  const li = document.createElement('li');
-                  li.style.marginBottom = '12px';
-                  
-                  const moveLabel = document.createElement('div');
-                  moveLabel.style.marginBottom = '4px';
-                  moveLabel.style.fontSize = '12px';
-                  moveLabel.style.color = '#aaa';
-                  moveLabel.textContent = move + ' (from egg group):';
-                  li.appendChild(moveLabel);
-                  
-                  for (const source of sources.slice(0, 3)) {
-                    const chainDiv = document.createElement('div');
-                    chainDiv.style.display = 'flex';
-                    chainDiv.style.alignItems = 'center';
-                    chainDiv.style.gap = '4px';
-                    chainDiv.style.marginLeft = '16px';
-                    chainDiv.style.marginBottom = '4px';
-                    
-                    // Source Pokemon sprite
-                    try {
-                      const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${source}`);
-                      if (spriteResp.ok) {
-                        const spriteData = await spriteResp.json();
-                        const spriteUrl = spriteData.sprites?.front_default;
-                        if (spriteUrl) {
-                          const img = document.createElement('img');
-                          img.src = spriteUrl;
-                          img.style.width = '32px';
-                          img.style.height = '32px';
-                          img.style.imageRendering = 'pixelated';
-                          img.title = source;
-                          chainDiv.appendChild(img);
-                        }
-                      }
-                    } catch (_) {}
-                    
-                    // Arrow
-                    const arrow = document.createElement('span');
-                    arrow.textContent = '→';
-                    arrow.style.color = '#8bac0f';
-                    chainDiv.appendChild(arrow);
-                    
-                    // Current Pokemon sprite
-                    try {
-                      const spriteUrl = data.sprites?.front_default;
-                      if (spriteUrl) {
-                        const img = document.createElement('img');
-                        img.src = spriteUrl;
-                        img.style.width = '32px';
-                        img.style.height = '32px';
-                        img.style.imageRendering = 'pixelated';
-                        img.title = data.name;
-                        chainDiv.appendChild(img);
-                      }
-                    } catch (_) {}
-                    
-                    li.appendChild(chainDiv);
-                  }
-                  
-                  if (sources.length > 3) {
-                    const moreText = document.createElement('div');
-                    moreText.style.marginLeft = '16px';
-                    moreText.style.fontSize = '10px';
-                    moreText.style.color = '#8bac0f';
-                    moreText.textContent = `+${sources.length - 3} more`;
-                    li.appendChild(moreText);
-                  }
-                  
-                  ulEgg.appendChild(li);
                 }
               }
             }
           }
         }
       } catch (_) {}
-      
-      eggDiv.appendChild(detailsEl);
-      contentDiv.appendChild(eggDiv);
+
+      await Promise.all(eggMoves.map(async mv => {
+        const li = document.createElement('li');
+        li.style.marginBottom = '12px';
+
+        const moveLabel = document.createElement('div');
+        moveLabel.style.marginBottom = '4px';
+        moveLabel.style.fontSize = '12px';
+        moveLabel.style.color = '#aaa';
+        moveLabel.textContent = mv + ':';
+        li.appendChild(moveLabel);
+
+        const sources = breedChainsMap[mv] || [];
+        if (sources.length > 0) {
+          const sourcesWrap = document.createElement('div');
+          sourcesWrap.style.display = 'flex';
+          sourcesWrap.style.flexWrap = 'wrap';
+          sourcesWrap.style.gap = '6px';
+
+          for (const source of sources.slice(0, 4)) {
+            const sourceWrap = document.createElement('span');
+            sourceWrap.style.display = 'inline-flex';
+            sourceWrap.style.alignItems = 'center';
+            sourceWrap.style.gap = '4px';
+
+            try {
+              const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${source}`);
+              if (spriteResp.ok) {
+                const spriteData = await spriteResp.json();
+                const spriteUrl = spriteData.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default 
+                  || spriteData.sprites?.versions?.['generation-v']?.['black-white']?.front_default
+                  || spriteData.sprites?.front_default;
+                if (spriteUrl) {
+                  const img = document.createElement('img');
+                  img.src = spriteUrl;
+                  img.style.width = '32px';
+                  img.style.height = '32px';
+                  img.style.imageRendering = 'pixelated';
+                  img.title = source;
+                  sourceWrap.appendChild(img);
+                }
+              }
+            } catch (_) {}
+
+            const sourceSpan = document.createElement('span');
+            sourceSpan.textContent = source;
+            sourceSpan.style.fontSize = '10px';
+            sourceWrap.appendChild(sourceSpan);
+            sourcesWrap.appendChild(sourceWrap);
+          }
+
+          if (sources.length > 4) {
+            const more = document.createElement('span');
+            more.textContent = `+${sources.length - 4}`;
+            more.style.fontSize = '10px';
+            more.style.color = '#8bac0f';
+            sourcesWrap.appendChild(more);
+          }
+
+          li.appendChild(sourcesWrap);
+        } else {
+          const none = document.createElement('span');
+          none.textContent = '(no egg-group sources found)';
+          none.style.fontSize = '10px';
+          none.style.color = '#888';
+          li.appendChild(none);
+        }
+
+        ulEgg.appendChild(li);
+      }));
+
+      detailsEl.appendChild(ulEgg);
+    } else {
+      sum.textContent = '';
+      sum.appendChild(document.createTextNode('Egg moves (none) '));
+      const icon = document.createElement('span');
+      icon.textContent = '!';
+      icon.style.color = '#8bac0f';
+      sum.appendChild(icon);
+      detailsEl.open = true;
+      detailsEl.style.background = 'rgba(139, 172, 15, 0.12)';
+      detailsEl.style.border = '1px solid #6b8c6b';
+      detailsEl.style.borderRadius = '4px';
+      detailsEl.style.padding = '6px';
+      const li = document.createElement('li');
+      li.textContent = '(no egg moves in gen 1-3)';
+      li.style.fontSize = '10px';
+      li.style.color = '#888';
+      ulEgg.appendChild(li);
+      detailsEl.appendChild(ulEgg);
     }
+
+    eggDiv.appendChild(detailsEl);
+    contentDiv.appendChild(eggDiv);
   }
 
-  if (names.length) showTab(0);
+  showTab(0);
 }
 
 function renderEvolution(chain) {
@@ -777,18 +933,30 @@ let selectedIndex = -1;
 
 async function loadNames(gen='all') {
   try {
+    console.log('Loading names for gen:', gen);
     if (gen === 'all') {
-      // aggregate gens 1–3 only
       const promises = [1,2,3].map(g =>
-        fetch(`${BACKEND}/pokemon-names?gen=${g}`).then(r => r.ok ? r.json() : [])
+        fetch(`${BACKEND}/pokemon-names?gen=${g}`).then(r => {
+          console.log(`Gen ${g} response status:`, r.status);
+          return r.ok ? r.json() : [];
+        }).catch(e => {
+          console.error(`Error fetching gen ${g}:`, e);
+          return [];
+        })
       );
       const arrays = await Promise.all(promises);
       allNames = [].concat(...arrays);
+      console.log('Total names loaded:', allNames.length);
     } else {
       const url = `${BACKEND}/pokemon-names${gen && gen!=='all' ? '?gen='+gen : ''}`;
+      console.log('Fetching from URL:', url);
       const res = await fetch(url);
+      console.log('Response status:', res.status);
       if (res.ok) {
         allNames = await res.json();
+        console.log('Names loaded:', allNames.length);
+      } else {
+        console.error('Failed to fetch pokemon names:', res.status);
       }
     }
     refreshSuggestions();
@@ -796,7 +964,6 @@ async function loadNames(gen='all') {
     console.error('Error loading names:', e);
   }
 }
-
 function refreshSuggestions() {
   const input = document.getElementById('search');
   const sugg = document.getElementById('suggestions');
@@ -872,4 +1039,8 @@ const genSelect = document.getElementById('gen-select');
 genSelect.addEventListener('change', () => loadNames(genSelect.value));
 
 // initial load
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOMContentLoaded: loading pokemon names...');
+  loadNames();
+});
 document.addEventListener('DOMContentLoaded', () => loadNames());

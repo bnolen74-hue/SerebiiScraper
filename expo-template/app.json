@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Pokédex Browser",
+    "slug": "pokedex-browser",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "plugins": [],
+    "experiments": {
+      "typedRoutes": false
+    },
+    "platforms": ["ios", "android", "web"]
+  }
+}
