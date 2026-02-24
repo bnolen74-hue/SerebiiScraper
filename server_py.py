@@ -120,6 +120,7 @@ def _build_tabs_from_locations(locations):
 
 
 def _read_cached_tabs(pokemon_name: str):
+    ensure_location_cache_table()
     conn = get_db()
     cur = conn.cursor()
     cur.execute(
@@ -142,6 +143,7 @@ def _read_cached_tabs(pokemon_name: str):
 
 
 def _write_cached_tabs(pokemon_name: str, source_name: str, tabs):
+    ensure_location_cache_table()
     conn = get_db()
     cur = conn.cursor()
     cur.execute(
