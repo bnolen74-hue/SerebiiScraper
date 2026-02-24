@@ -75,10 +75,33 @@ async function displayEntry(entry) {
   out.appendChild(locationSection);
 
   try {
+    let locations = [];
+
     const locResp = await fetch(`${BACKEND}/pokemon/${encodeURIComponent(entry.name)}/locations`);
     if (locResp.ok) {
       const locData = await locResp.json();
-      const locations = Array.isArray(locData.locations) ? locData.locations : [];
+      locations = Array.isArray(locData.locations) ? locData.locations : [];
+
+      if (!locations.length && entry.pokeapi_url) {
+        try {
+          const speciesResp = await fetch(entry.pokeapi_url);
+          if (speciesResp.ok) {
+            const speciesData = await speciesResp.json();
+            const prevName = speciesData.evolves_from_species?.name;
+            if (prevName) {
+              const prevLocResp = await fetch(`${BACKEND}/pokemon/${encodeURIComponent(prevName)}/locations`);
+              if (prevLocResp.ok) {
+                const prevLocData = await prevLocResp.json();
+                const prevLocations = Array.isArray(prevLocData.locations) ? prevLocData.locations : [];
+                if (prevLocations.length) {
+                  locations = prevLocations;
+                }
+              }
+            }
+          }
+        } catch (_) {}
+      }
+
       locationList.innerHTML = '';
 
       if (locations.length) {
