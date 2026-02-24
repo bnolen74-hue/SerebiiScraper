@@ -168,7 +168,7 @@ async function displayEntry(entry) {
         }
       } else {
         const none = document.createElement('li');
-        none.textContent = 'No Gen 1-3 GBA Pokéarth links found for this entry.';
+        none.textContent = 'No Gen 1–3 GBA location data for this Pokémon.';
         locationList.appendChild(none);
       }
     } else {
