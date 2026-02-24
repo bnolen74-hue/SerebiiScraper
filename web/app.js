@@ -64,6 +64,125 @@ async function displayEntry(entry) {
     out.appendChild(a);
   }
 
+  const locationSection = document.createElement('div');
+  locationSection.style.marginTop = '10px';
+  locationSection.innerHTML = '<strong>Pokéarth locations (Gen 1–3 GBA):</strong>';
+  const locationList = document.createElement('ul');
+  const loadingItem = document.createElement('li');
+  loadingItem.textContent = 'Loading locations...';
+  locationList.appendChild(loadingItem);
+  locationSection.appendChild(locationList);
+  out.appendChild(locationSection);
+
+  try {
+    const locResp = await fetch(`${BACKEND}/pokemon/${encodeURIComponent(entry.name)}/locations`);
+    if (locResp.ok) {
+      const locData = await locResp.json();
+      const locations = Array.isArray(locData.locations) ? locData.locations : [];
+      locationList.innerHTML = '';
+
+      if (locations.length) {
+        const gameTabs = {
+          'FireRed/LeafGreen': { routes: [], other: [] },
+          'Ruby/Sapphire/Emerald': { routes: [], other: [] }
+        };
+
+        locations.forEach(loc => {
+          const locationName = (loc.name || '').trim();
+          if (!locationName) return;
+          const isRoute = /^route\s+\d+/i.test(locationName);
+
+          if (loc.region === 'kanto' || loc.region === 'sevii') {
+            if (isRoute) {
+              gameTabs['FireRed/LeafGreen'].routes.push(locationName);
+            } else {
+              gameTabs['FireRed/LeafGreen'].other.push(locationName);
+            }
+          } else if (loc.region === 'hoenn') {
+            if (isRoute) {
+              gameTabs['Ruby/Sapphire/Emerald'].routes.push(locationName);
+            } else {
+              gameTabs['Ruby/Sapphire/Emerald'].other.push(locationName);
+            }
+          }
+        });
+
+        const orderedGames = ['FireRed/LeafGreen', 'Ruby/Sapphire/Emerald'];
+        const tabsDiv = document.createElement('div');
+        tabsDiv.className = 'tabs';
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'tab-content';
+
+        const dedupeAndSortByName = (names) => {
+          const unique = Array.from(new Set(names));
+          unique.sort((a, b) => {
+            const aNum = parseInt((a.match(/\d+/) || ['0'])[0], 10);
+            const bNum = parseInt((b.match(/\d+/) || ['0'])[0], 10);
+            if (aNum !== bNum) return aNum - bNum;
+            return a.localeCompare(b);
+          });
+          return unique;
+        };
+
+        const showGameTab = (gameName, btn) => {
+          Array.from(tabsDiv.querySelectorAll('.tab-btn')).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          contentDiv.innerHTML = '';
+          const tabData = gameTabs[gameName] || { routes: [], other: [] };
+          const routes = dedupeAndSortByName(tabData.routes || []);
+          const fallbackAreas = dedupeAndSortByName(tabData.other || []);
+          const itemsToShow = routes.length ? routes : fallbackAreas;
+
+          if (!itemsToShow.length) {
+            const none = document.createElement('div');
+            none.textContent = 'No locations found for this game.';
+            contentDiv.appendChild(none);
+            return;
+          }
+
+          const ul = document.createElement('ul');
+          itemsToShow.forEach(route => {
+            const li = document.createElement('li');
+            li.textContent = route;
+            ul.appendChild(li);
+          });
+          contentDiv.appendChild(ul);
+        };
+
+        let firstBtn = null;
+        orderedGames.forEach(gameName => {
+          const btn = document.createElement('button');
+          btn.className = 'tab-btn';
+          btn.textContent = gameName;
+          btn.addEventListener('click', () => showGameTab(gameName, btn));
+          tabsDiv.appendChild(btn);
+          if (!firstBtn) firstBtn = btn;
+        });
+
+        locationList.style.listStyle = 'none';
+        locationList.style.paddingLeft = '0';
+        const containerItem = document.createElement('li');
+        containerItem.style.listStyle = 'none';
+        containerItem.appendChild(tabsDiv);
+        containerItem.appendChild(contentDiv);
+        locationList.appendChild(containerItem);
+
+        if (firstBtn) {
+          showGameTab('FireRed/LeafGreen', firstBtn);
+        }
+      } else {
+        const none = document.createElement('li');
+        none.textContent = 'No Gen 1-3 GBA Pokéarth links found for this entry.';
+        locationList.appendChild(none);
+      }
+    } else {
+      loadingItem.textContent = 'Location data unavailable.';
+    }
+  } catch (_) {
+    loadingItem.textContent = 'Location data unavailable.';
+  }
+
   let spriteImg = null;
 
   if (entry.pokeapi_url) {
@@ -117,7 +236,7 @@ async function displayEntry(entry) {
         names = [entry.name];
       }
       
-      await buildEvolutionTabs(names, chains, spriteImg);
+      await buildEvolutionTabs(names, chains, spriteImg, entry.name);
     } catch (_){ /* ignore */ }
   }
 }
@@ -322,7 +441,7 @@ const TYPE_COLORS = {
   'fairy': { bg: '#ee99ac', text: '#000' }
 };
 
-async function buildEvolutionTabs(names, chains = [], spriteImg = null) {
+async function buildEvolutionTabs(names, chains = [], spriteImg = null, selectedName = '') {
   const out = document.getElementById('output');
   const tabsDiv = document.createElement('div');
   tabsDiv.className = 'tabs';
@@ -902,7 +1021,9 @@ async function buildEvolutionTabs(names, chains = [], spriteImg = null) {
     contentDiv.appendChild(eggDiv);
   }
 
-  showTab(0);
+  const normalizedSelected = (selectedName || '').toLowerCase();
+  const selectedIdx = names.findIndex(n => n.toLowerCase() === normalizedSelected);
+  showTab(selectedIdx >= 0 ? selectedIdx : 0);
 }
 
 function renderEvolution(chain) {
