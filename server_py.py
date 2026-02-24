@@ -13,6 +13,7 @@ import os
 import sqlite3
 from typing import Optional, List, Dict
 from urllib.parse import urljoin, urlparse
+import re
 
 import requests
 from bs4 import BeautifulSoup
@@ -24,6 +25,9 @@ GBA_SCOPE_REGIONS = {
     "sevii": "Sevii Islands (FireRed/LeafGreen)",
     "hoenn": "Hoenn (Ruby/Sapphire/Emerald)",
 }
+
+FRLG_VERSIONS = {"firered", "leafgreen"}
+RSE_VERSIONS = {"ruby", "sapphire", "emerald"}
 
 app = FastAPI()
 app.add_middleware(
@@ -120,6 +124,89 @@ def read_pokemon_locations(name: str):
                 "group": GBA_SCOPE_REGIONS[region_key],
             }
         )
+
+    if not locations:
+        pokeapi_species_url = entry.get("pokeapi_url")
+        pokemon_url = (
+            pokeapi_species_url.replace("pokemon-species", "pokemon")
+            if isinstance(pokeapi_species_url, str)
+            else None
+        )
+
+        if pokemon_url:
+            try:
+                poke_resp = requests.get(
+                    pokemon_url,
+                    timeout=12,
+                    headers={
+                        "User-Agent": "Mozilla/5.0 (compatible; SerebiiScraper/1.0)"
+                    },
+                )
+                poke_resp.raise_for_status()
+                poke_data = poke_resp.json()
+                encounters_url = poke_data.get("location_area_encounters")
+
+                if encounters_url:
+                    encounter_resp = requests.get(
+                        encounters_url,
+                        timeout=12,
+                        headers={
+                            "User-Agent": "Mozilla/5.0 (compatible; SerebiiScraper/1.0)"
+                        },
+                    )
+                    encounter_resp.raise_for_status()
+                    encounters = encounter_resp.json()
+
+                    fallback_seen = set()
+                    for enc in encounters:
+                        raw_area = (
+                            enc.get("location_area", {})
+                            .get("name", "")
+                            .strip()
+                            .lower()
+                        )
+                        if not raw_area:
+                            continue
+
+                        versions = {
+                            vd.get("version", {}).get("name", "").lower()
+                            for vd in enc.get("version_details", [])
+                            if vd.get("version", {}).get("name")
+                        }
+
+                        regions = set()
+                        if versions & FRLG_VERSIONS:
+                            regions.add("kanto")
+                        if versions & RSE_VERSIONS:
+                            regions.add("hoenn")
+                        if not regions:
+                            continue
+
+                        route_match = re.search(r"route-(\d+)", raw_area)
+                        if route_match:
+                            area_label = f"Route {route_match.group(1)}"
+                        else:
+                            area_label = (
+                                raw_area.replace("-area", "")
+                                .replace("-", " ")
+                                .title()
+                            )
+
+                        for region_key in regions:
+                            dedupe_key = (region_key, area_label.lower())
+                            if dedupe_key in fallback_seen:
+                                continue
+                            fallback_seen.add(dedupe_key)
+                            locations.append(
+                                {
+                                    "name": area_label,
+                                    "url": "",
+                                    "region": region_key,
+                                    "group": GBA_SCOPE_REGIONS[region_key],
+                                }
+                            )
+            except Exception:
+                pass
 
     return {"name": entry.get("name", name), "locations": locations}
 
