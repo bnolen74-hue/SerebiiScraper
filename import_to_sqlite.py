@@ -45,6 +45,16 @@ def main():
         )
         """
     )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS pokemon_location_cache (
+            pokemon_name TEXT PRIMARY KEY,
+            source_name TEXT NOT NULL,
+            tabs_json TEXT NOT NULL,
+            updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
     conn.commit()
 
     with open(data_path, encoding="utf-8") as f:
@@ -55,6 +65,8 @@ def main():
             "INSERT OR REPLACE INTO pokemon (gen,name,pokeapi_url,serebii_url) VALUES (?,?,?,?)",
             (ent.get("gen"), ent.get("name"), ent.get("pokeapi_url"), ent.get("serebii_url")),
         )
+
+    cursor.execute("DELETE FROM pokemon_location_cache")
     conn.commit()
     print(f"Imported {len(entries)} rows into {args.db}")
 

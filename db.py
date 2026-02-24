@@ -15,6 +15,13 @@ CREATE TABLE IF NOT EXISTS pokemon (
     serebii_url TEXT,
     PRIMARY KEY(gen, name)
 );
+
+CREATE TABLE IF NOT EXISTS pokemon_location_cache (
+    pokemon_name TEXT PRIMARY KEY,
+    source_name TEXT NOT NULL,
+    tabs_json TEXT NOT NULL,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 """
 
 

@@ -75,62 +75,34 @@ async function displayEntry(entry) {
   out.appendChild(locationSection);
 
   try {
-    let locations = [];
-
     const locResp = await fetch(`${BACKEND}/pokemon/${encodeURIComponent(entry.name)}/locations`);
     if (locResp.ok) {
       const locData = await locResp.json();
-      locations = Array.isArray(locData.locations) ? locData.locations : [];
-
-      if (!locations.length && entry.pokeapi_url) {
-        try {
-          const speciesResp = await fetch(entry.pokeapi_url);
-          if (speciesResp.ok) {
-            const speciesData = await speciesResp.json();
-            const prevName = speciesData.evolves_from_species?.name;
-            if (prevName) {
-              const prevLocResp = await fetch(`${BACKEND}/pokemon/${encodeURIComponent(prevName)}/locations`);
-              if (prevLocResp.ok) {
-                const prevLocData = await prevLocResp.json();
-                const prevLocations = Array.isArray(prevLocData.locations) ? prevLocData.locations : [];
-                if (prevLocations.length) {
-                  locations = prevLocations;
-                }
-              }
-            }
-          }
-        } catch (_) {}
-      }
+      const tabsPayload = locData?.tabs || {};
+      const frlgTab = tabsPayload.FRLG || { label: 'FireRed/LeafGreen', routes: [], other: [] };
+      const rseTab = tabsPayload.RSE || { label: 'Ruby/Sapphire/Emerald', routes: [], other: [] };
 
       locationList.innerHTML = '';
 
-      if (locations.length) {
+      const hasAnyLocations =
+        (frlgTab.routes && frlgTab.routes.length) ||
+        (frlgTab.other && frlgTab.other.length) ||
+        (rseTab.routes && rseTab.routes.length) ||
+        (rseTab.other && rseTab.other.length);
+
+      if (hasAnyLocations) {
         const gameTabs = {
-          'FireRed/LeafGreen': { routes: [], other: [] },
-          'Ruby/Sapphire/Emerald': { routes: [], other: [] }
+          [frlgTab.label || 'FireRed/LeafGreen']: {
+            routes: Array.isArray(frlgTab.routes) ? frlgTab.routes : [],
+            other: Array.isArray(frlgTab.other) ? frlgTab.other : []
+          },
+          [rseTab.label || 'Ruby/Sapphire/Emerald']: {
+            routes: Array.isArray(rseTab.routes) ? rseTab.routes : [],
+            other: Array.isArray(rseTab.other) ? rseTab.other : []
+          }
         };
 
-        locations.forEach(loc => {
-          const locationName = (loc.name || '').trim();
-          if (!locationName) return;
-          const isRoute = /^route\s+\d+/i.test(locationName);
-
-          if (loc.region === 'kanto' || loc.region === 'sevii') {
-            if (isRoute) {
-              gameTabs['FireRed/LeafGreen'].routes.push(locationName);
-            } else {
-              gameTabs['FireRed/LeafGreen'].other.push(locationName);
-            }
-          } else if (loc.region === 'hoenn') {
-            if (isRoute) {
-              gameTabs['Ruby/Sapphire/Emerald'].routes.push(locationName);
-            } else {
-              gameTabs['Ruby/Sapphire/Emerald'].other.push(locationName);
-            }
-          }
-        });
-
-        const orderedGames = ['FireRed/LeafGreen', 'Ruby/Sapphire/Emerald'];
+        const orderedGames = [frlgTab.label || 'FireRed/LeafGreen', rseTab.label || 'Ruby/Sapphire/Emerald'];
         const tabsDiv = document.createElement('div');
         tabsDiv.className = 'tabs';
         const contentDiv = document.createElement('div');
@@ -192,7 +164,7 @@ async function displayEntry(entry) {
         locationList.appendChild(containerItem);
 
         if (firstBtn) {
-          showGameTab('FireRed/LeafGreen', firstBtn);
+          showGameTab(orderedGames[0], firstBtn);
         }
       } else {
         const none = document.createElement('li');
