@@ -68,10 +68,33 @@ def _on_startup() -> None:
 
 
 def get_pokemon_entry(name: str):
+    normalized = (name or "").strip().lower()
+    if not normalized:
+        return None
+
+    candidates = [normalized]
+    spaced = normalized.replace(" ", "-")
+    if spaced not in candidates:
+        candidates.append(spaced)
+
+    if "-" in normalized:
+        base = normalized.split("-", 1)[0]
+        if base and base not in candidates:
+            candidates.append(base)
+
+    if " " in normalized:
+        base = normalized.split(" ", 1)[0]
+        if base and base not in candidates:
+            candidates.append(base)
+
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM pokemon WHERE lower(name)=?", (name.lower(),))
-    row = cur.fetchone()
+    row = None
+    for candidate in candidates:
+        cur.execute("SELECT * FROM pokemon WHERE lower(name)=?", (candidate,))
+        row = cur.fetchone()
+        if row:
+            break
     conn.close()
     return dict(row) if row else None
 
@@ -302,14 +325,10 @@ def _extract_locations_for_entry(entry: Dict):
 
 @app.get("/pokemon/{name}")
 def read_pokemon(name: str):
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM pokemon WHERE lower(name)=?", (name.lower(),))
-    row = cur.fetchone()
-    conn.close()
-    if not row:
+    entry = get_pokemon_entry(name)
+    if not entry:
         raise HTTPException(status_code=404, detail="not found")
-    return dict(row)
+    return entry
 
 
 @app.get("/pokemon/{name}/locations")
