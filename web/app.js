@@ -66,7 +66,7 @@ async function displayEntry(entry) {
 
   const locationSection = document.createElement('div');
   locationSection.style.marginTop = '10px';
-  locationSection.innerHTML = '<strong>Pokéarth locations (Gen 1–3 GBA):</strong>';
+  locationSection.innerHTML = '<strong>Pokéarth locations:</strong>';
   const locationList = document.createElement('ul');
   const loadingItem = document.createElement('li');
   loadingItem.textContent = 'Loading locations...';
