@@ -11,6 +11,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (_req, res) => {
+    res.json({ service: 'pokedex-api', status: 'ok' });
+});
+
+app.get('/health', (_req, res) => {
+    res.json({ status: 'ok' });
+});
+
 function getDb() {
     return new sqlite3.Database(DB_FILE, sqlite3.OPEN_READONLY);
 }

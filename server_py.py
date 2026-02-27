@@ -39,6 +39,16 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root():
+    return {"service": "pokedex-api", "status": "ok"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 def get_db():
     conn = sqlite3.connect(DB_FILE)
     conn.row_factory = sqlite3.Row

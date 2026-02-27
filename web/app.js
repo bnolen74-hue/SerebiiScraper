@@ -30,6 +30,26 @@ async function fetchGen5AnimatedSprite(pokemonUrl) {
   return null;
 }
 
+function createGbaVersionStore(initialVersion = 'firered-leafgreen') {
+  let current = initialVersion;
+  const listeners = new Set();
+
+  return {
+    get() {
+      return current;
+    },
+    set(nextVersion) {
+      if (!nextVersion || nextVersion === current) return;
+      current = nextVersion;
+      listeners.forEach(listener => listener(current));
+    },
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    }
+  };
+}
+
 async function lookup(name) {
   const out = document.getElementById('output');
   out.textContent = 'Loading...';
@@ -51,6 +71,7 @@ async function lookup(name) {
 async function displayEntry(entry) {
   const out = document.getElementById('output');
   out.innerHTML = '';
+  const gbaVersionStore = createGbaVersionStore('firered-leafgreen');
 
   const title = document.createElement('h2');
   title.textContent = entry.name;
@@ -66,7 +87,6 @@ async function displayEntry(entry) {
 
   const locationSection = document.createElement('div');
   locationSection.style.marginTop = '10px';
-  locationSection.innerHTML = '<strong>Pokéarth locations:</strong>';
   const locationList = document.createElement('ul');
   const loadingItem = document.createElement('li');
   loadingItem.textContent = 'Loading locations...';
@@ -92,17 +112,24 @@ async function displayEntry(entry) {
 
       if (hasAnyLocations) {
         const gameTabs = {
-          [frlgTab.label || 'FireRed/LeafGreen']: {
+          'firered-leafgreen': {
+            label: 'FireRed/LeafGreen',
             routes: Array.isArray(frlgTab.routes) ? frlgTab.routes : [],
             other: Array.isArray(frlgTab.other) ? frlgTab.other : []
           },
-          [rseTab.label || 'Ruby/Sapphire/Emerald']: {
+          'ruby-sapphire': {
+            label: 'Ruby/Sapphire',
+            routes: Array.isArray(rseTab.routes) ? rseTab.routes : [],
+            other: Array.isArray(rseTab.other) ? rseTab.other : []
+          },
+          'emerald': {
+            label: 'Emerald',
             routes: Array.isArray(rseTab.routes) ? rseTab.routes : [],
             other: Array.isArray(rseTab.other) ? rseTab.other : []
           }
         };
 
-        const orderedGames = [frlgTab.label || 'FireRed/LeafGreen', rseTab.label || 'Ruby/Sapphire/Emerald'];
+        const orderedGames = ['firered-leafgreen', 'ruby-sapphire', 'emerald'];
         const tabsDiv = document.createElement('div');
         tabsDiv.className = 'tabs';
         const contentDiv = document.createElement('div');
@@ -119,40 +146,64 @@ async function displayEntry(entry) {
           return unique;
         };
 
-        const showGameTab = (gameName, btn) => {
+        const showGameTab = (gameKey, btn, updateStore = true) => {
           Array.from(tabsDiv.querySelectorAll('.tab-btn')).forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
+          if (btn) btn.classList.add('active');
 
           contentDiv.innerHTML = '';
-          const tabData = gameTabs[gameName] || { routes: [], other: [] };
+          const tabData = gameTabs[gameKey] || { routes: [], other: [] };
           const routes = dedupeAndSortByName(tabData.routes || []);
           const fallbackAreas = dedupeAndSortByName(tabData.other || []);
           const itemsToShow = routes.length ? routes : fallbackAreas;
 
+          if (updateStore) {
+            gbaVersionStore.set(gameKey);
+          }
+
+          const sectionTitle = document.createElement('div');
+          sectionTitle.style.marginBottom = '6px';
+          sectionTitle.style.fontSize = '10px';
+          sectionTitle.innerHTML = `<strong>Locations:</strong> ${tabData.label || gameKey}`;
+          contentDiv.appendChild(sectionTitle);
+
           if (!itemsToShow.length) {
             const none = document.createElement('div');
             none.textContent = 'No locations found for this game.';
+            none.style.fontSize = '10px';
+            none.style.color = '#888';
             contentDiv.appendChild(none);
             return;
           }
 
           const ul = document.createElement('ul');
+          ul.style.marginTop = '0';
+          ul.style.marginBottom = '0';
+          ul.style.paddingLeft = '20px';
           itemsToShow.forEach(route => {
             const li = document.createElement('li');
             li.textContent = route;
+            li.style.marginBottom = '4px';
             ul.appendChild(li);
           });
           contentDiv.appendChild(ul);
         };
 
+        const buttonByGame = {};
         let firstBtn = null;
-        orderedGames.forEach(gameName => {
+        orderedGames.forEach(gameKey => {
           const btn = document.createElement('button');
           btn.className = 'tab-btn';
-          btn.textContent = gameName;
-          btn.addEventListener('click', () => showGameTab(gameName, btn));
+          btn.textContent = gameTabs[gameKey].label;
+          btn.addEventListener('click', () => showGameTab(gameKey, btn));
           tabsDiv.appendChild(btn);
+          buttonByGame[gameKey] = btn;
           if (!firstBtn) firstBtn = btn;
+        });
+
+        gbaVersionStore.subscribe(selectedVersion => {
+          const selectedBtn = buttonByGame[selectedVersion] || firstBtn;
+          const selectedKey = buttonByGame[selectedVersion] ? selectedVersion : orderedGames[0];
+          showGameTab(selectedKey, selectedBtn, false);
         });
 
         locationList.style.listStyle = 'none';
@@ -164,7 +215,11 @@ async function displayEntry(entry) {
         locationList.appendChild(containerItem);
 
         if (firstBtn) {
-          showGameTab(orderedGames[0], firstBtn);
+          const initialGame = orderedGames.includes(gbaVersionStore.get()) ? gbaVersionStore.get() : orderedGames[0];
+          showGameTab(initialGame, buttonByGame[initialGame] || firstBtn, false);
+          if (initialGame !== gbaVersionStore.get()) {
+            gbaVersionStore.set(initialGame);
+          }
         }
       } else {
         const none = document.createElement('li');
@@ -231,7 +286,7 @@ async function displayEntry(entry) {
         names = [entry.name];
       }
       
-      await buildEvolutionTabs(names, chains, spriteImg, entry.name);
+      await buildEvolutionTabs(names, chains, spriteImg, entry.name, gbaVersionStore);
     } catch (_){ /* ignore */ }
   }
 }
@@ -404,6 +459,16 @@ const GEN1_3_GROUPS = new Set([
 ]);
 
 const GBA_GROUPS = new Set(['ruby-sapphire', 'emerald', 'firered-leafgreen']);
+const GBA_VERSION_ORDER = ['firered-leafgreen', 'ruby-sapphire', 'emerald'];
+
+function toGbaVersionKey(versionName) {
+  if (!versionName) return null;
+  const key = versionName.toLowerCase();
+  if (key === 'firered' || key === 'leafgreen' || key === 'firered-leafgreen') return 'firered-leafgreen';
+  if (key === 'ruby' || key === 'sapphire' || key === 'ruby-sapphire') return 'ruby-sapphire';
+  if (key === 'emerald') return 'emerald';
+  return null;
+}
 
 const VERSION_GROUP_NAMES = {
   'red-blue': 'Red/Blue',
@@ -436,7 +501,7 @@ const TYPE_COLORS = {
   'fairy': { bg: '#ee99ac', text: '#000' }
 };
 
-async function buildEvolutionTabs(names, chains = [], spriteImg = null, selectedName = '') {
+async function buildEvolutionTabs(names, chains = [], spriteImg = null, selectedName = '', gbaVersionStore = createGbaVersionStore()) {
   const out = document.getElementById('output');
   const tabsDiv = document.createElement('div');
   tabsDiv.className = 'tabs';
@@ -486,6 +551,7 @@ async function buildEvolutionTabs(names, chains = [], spriteImg = null, selected
   out.appendChild(contentDiv);
 
   let isShiny = false;
+  const gbaSyncCleanups = [];
 
   function updateSprite(data) {
     if (spriteImg && data) {
@@ -505,6 +571,11 @@ async function buildEvolutionTabs(names, chains = [], spriteImg = null, selected
   }
 
   async function showTab(i) {
+    while (gbaSyncCleanups.length) {
+      const cleanup = gbaSyncCleanups.pop();
+      if (typeof cleanup === 'function') cleanup();
+    }
+
     // clear existing content
     contentDiv.innerHTML = '';
     const data = datas[i];
@@ -594,20 +665,19 @@ async function buildEvolutionTabs(names, chains = [], spriteImg = null, selected
     
     contentDiv.appendChild(statDiv);
 
-    // Held items (filtered to gen1-3)
+    // Held items (synced to selected GBA game)
     const heldItemsByVersion = {};
     if (data.held_items && data.held_items.length > 0) {
       data.held_items.forEach(item => {
         item.version_details.forEach(vd => {
-          if (GEN1_3_GROUPS.has(vd.version.name) && vd.rarity > 0) {
-            const versionName = vd.version.name;
+          if (vd.rarity > 0) {
+            const versionName = toGbaVersionKey(vd.version?.name);
+            if (!versionName) return;
             if (!heldItemsByVersion[versionName]) {
-              heldItemsByVersion[versionName] = [];
+              heldItemsByVersion[versionName] = {};
             }
-            heldItemsByVersion[versionName].push({
-              name: item.item.name,
-              rarity: vd.rarity
-            });
+            const current = heldItemsByVersion[versionName][item.item.name] || 0;
+            heldItemsByVersion[versionName][item.item.name] = Math.max(current, vd.rarity);
           }
         });
       });
@@ -617,46 +687,46 @@ async function buildEvolutionTabs(names, chains = [], spriteImg = null, selected
       const itemDiv = document.createElement('div');
       itemDiv.innerHTML = '<strong>Held Items:</strong>';
       itemDiv.style.marginTop = '12px';
-      
-      const versions = Object.keys(heldItemsByVersion).sort();
-      const itemTable = document.createElement('table');
-      
-      const headerRow = document.createElement('tr');
-      const nameHeader = document.createElement('th');
-      nameHeader.textContent = 'Item';
-      headerRow.appendChild(nameHeader);
-      
-      versions.forEach(v => {
-        const th = document.createElement('th');
-        th.textContent = VERSION_GROUP_NAMES[v] || v;
-        headerRow.appendChild(th);
-      });
-      itemTable.appendChild(headerRow);
-      
-      const allItems = new Set();
-      Object.values(heldItemsByVersion).forEach(items => {
-        items.forEach(item => allItems.add(item.name));
-      });
-      
-      Array.from(allItems).sort().forEach(itemName => {
-        const row = document.createElement('tr');
-        const nameCell = document.createElement('td');
-        nameCell.textContent = itemName;
-        nameCell.style.textAlign = 'left';
-        row.appendChild(nameCell);
-        
-        versions.forEach(v => {
-          const cell = document.createElement('td');
-          const item = heldItemsByVersion[v].find(i => i.name === itemName);
-          cell.textContent = item ? `${item.rarity}%` : '-';
-          cell.style.textAlign = 'center';
-          row.appendChild(cell);
+
+      const itemLabel = document.createElement('div');
+      itemLabel.style.fontSize = '11px';
+      itemLabel.style.color = '#aaa';
+      itemLabel.style.marginTop = '4px';
+      itemDiv.appendChild(itemLabel);
+
+      const itemList = document.createElement('ul');
+      itemList.style.marginTop = '6px';
+      itemDiv.appendChild(itemList);
+
+      const renderHeldItems = (selectedVersion) => {
+        itemList.innerHTML = '';
+        itemLabel.textContent = VERSION_GROUP_NAMES[selectedVersion] || selectedVersion;
+
+        const itemMap = heldItemsByVersion[selectedVersion] || {};
+        const rows = Object.entries(itemMap)
+          .map(([name, rarity]) => ({ name, rarity }))
+          .sort((a, b) => a.name.localeCompare(b.name));
+
+        if (!rows.length) {
+          const li = document.createElement('li');
+          li.textContent = 'No held items for this game.';
+          itemList.appendChild(li);
+          return;
+        }
+
+        rows.forEach(row => {
+          const li = document.createElement('li');
+          li.textContent = `${row.name} (${row.rarity}%)`;
+          itemList.appendChild(li);
         });
-        
-        itemTable.appendChild(row);
+      };
+
+      const unsubscribeHeldSync = gbaVersionStore.subscribe(selectedVersion => {
+        renderHeldItems(selectedVersion);
       });
-      
-      itemDiv.appendChild(itemTable);
+      gbaSyncCleanups.push(unsubscribeHeldSync);
+
+      renderHeldItems(gbaVersionStore.get());
       contentDiv.appendChild(itemDiv);
     }
 
@@ -684,172 +754,126 @@ async function buildEvolutionTabs(names, chains = [], spriteImg = null, selected
     });
     
     if (Object.keys(movesByLevelByVersion).length > 0) {
-      // Check if there are significant differences between versions
-      const gbaVersions = Object.keys(movesByLevelByVersion)
-        .filter(v => GBA_GROUPS.has(v))
-        .sort((a, b) => {
-          const versionOrder = ['ruby-sapphire','emerald','firered-leafgreen'];
-          return versionOrder.indexOf(a) - versionOrder.indexOf(b);
-        });
-      
-      // Helper function to get all moves for a version
-      const getMovesForVersion = (version) => {
-        const moves = new Map();
-        Object.keys(movesByLevelByVersion[version]).forEach(lvl => {
-          movesByLevelByVersion[version][lvl].forEach(move => {
-            moves.set(move, parseInt(lvl));
-          });
-        });
-        return moves;
-      };
-      
-      // Check if there are serious changes between versions
-      let hasSeriousChanges = false;
-      if (gbaVersions.length > 1) {
-        const firstVersionMoves = getMovesForVersion(gbaVersions[0]);
-        for (let i = 1; i < gbaVersions.length; i++) {
-          const currentVersionMoves = getMovesForVersion(gbaVersions[i]);
-          // Check if any move has different level or is missing
-          for (const [move, level] of firstVersionMoves) {
-            if (!currentVersionMoves.has(move) || currentVersionMoves.get(move) !== level) {
-              hasSeriousChanges = true;
-              break;
-            }
-          }
-          // Check if current version has moves not in first version
-          for (const move of currentVersionMoves.keys()) {
-            if (!firstVersionMoves.has(move)) {
-              hasSeriousChanges = true;
-              break;
-            }
-          }
-          if (hasSeriousChanges) break;
-        }
-      }
-      
-      const lm = document.createElement('div');
-      lm.innerHTML = '<strong>Level-up moves:</strong>';
-      lm.style.marginTop = '12px';
-      
-      // Create a container for tabs and content
-      const tabContainer = document.createElement('div');
-      tabContainer.style.display = 'flex';
-      tabContainer.style.flexDirection = 'column';
-      tabContainer.style.gap = '12px';
-      tabContainer.style.marginTop = '12px';
-      
-      // Filter to GBA versions only
-      const sortedVersions = gbaVersions;
-      
-      // Only create tabs if there are serious changes between versions
-      if (hasSeriousChanges && sortedVersions.length > 1) {
-        // Create tabs for different versions
+      const sortedVersions = GBA_VERSION_ORDER.filter(v => movesByLevelByVersion[v] && GBA_GROUPS.has(v));
+
+      if (sortedVersions.length > 0) {
+        const lm = document.createElement('div');
+        lm.innerHTML = '<strong>Level-up moves:</strong>';
+        lm.style.marginTop = '12px';
+
         const versionTabs = document.createElement('div');
         versionTabs.style.display = 'flex';
         versionTabs.style.flexDirection = 'column';
         versionTabs.style.gap = '4px';
+        versionTabs.style.marginTop = '12px';
         versionTabs.style.marginBottom = '12px';
         versionTabs.style.minWidth = '150px';
-        
+
         const versionContents = document.createElement('div');
         versionContents.style.width = '100%';
-        
-        sortedVersions.forEach((versionGroup, vIdx) => {
+
+        const buttonByVersion = {};
+        const contentByVersion = {};
+
+        sortedVersions.forEach(versionGroup => {
           const btn = document.createElement('button');
-          btn.textContent = VERSION_GROUP_NAMES[versionGroup];
+          btn.textContent = VERSION_GROUP_NAMES[versionGroup] || versionGroup;
           btn.style.width = '100%';
           btn.style.padding = '8px 12px';
           btn.style.fontSize = '12px';
           btn.style.cursor = 'pointer';
-          btn.style.background = vIdx === 0 ? '#8bac0f' : '#333';
+          btn.style.background = '#333';
           btn.style.color = '#fff';
           btn.style.border = '1px solid #666';
           btn.style.borderRadius = '4px';
           btn.style.textAlign = 'left';
           btn.style.transition = 'all 0.1s';
-          
-          btn.addEventListener('click', () => {
-            // Hide all contents
-            Array.from(versionContents.querySelectorAll('.version-moves')).forEach(el => el.style.display = 'none');
-            // Show selected
-            document.getElementById(`moves-${vIdx}`).style.display = 'block';
-            // Update button styles
-            Array.from(versionTabs.querySelectorAll('button')).forEach(b => {
-              b.style.background = '#333';
-            });
-            btn.style.background = '#8bac0f';
-          });
-          
+
+          buttonByVersion[versionGroup] = btn;
           versionTabs.appendChild(btn);
-          
-          // Create content for this version
+
           const versionDiv = document.createElement('div');
-          versionDiv.id = `moves-${vIdx}`;
-          versionDiv.className = 'version-moves';
-          versionDiv.style.display = vIdx === 0 ? 'block' : 'none';
-          
+          versionDiv.style.display = 'none';
+
           const ulm = document.createElement('ul');
-          const levels = Object.keys(movesByLevelByVersion[versionGroup]).map(Number).sort((a,b)=>a-b);
+          const levels = Object.keys(movesByLevelByVersion[versionGroup]).map(Number).sort((a, b) => a - b);
           for (const lvl of levels) {
-            const moveNames = Array.from(movesByLevelByVersion[versionGroup][lvl]).sort().map(n=>n.replace(/\[|\]/g,''));
+            const moveNames = Array.from(movesByLevelByVersion[versionGroup][lvl]).sort().map(n => n.replace(/\[|\]/g, ''));
             for (const moveName of moveNames) {
               const li = document.createElement('li');
               li.textContent = `Lvl ${lvl}: ${moveName}`;
               ulm.appendChild(li);
             }
           }
-          
+
           versionDiv.appendChild(ulm);
           versionContents.appendChild(versionDiv);
+          contentByVersion[versionGroup] = versionDiv;
         });
-        
-        tabContainer.appendChild(versionTabs);
-        tabContainer.appendChild(versionContents);
-        lm.appendChild(tabContainer);
-      } else {
-        // No serious changes - show all moves combined without tabs
-        const ulm = document.createElement('ul');
-        const allMoves = new Map();
+
+        const setActiveVersion = (versionGroup, updateStore = true) => {
+          if (!contentByVersion[versionGroup]) return;
+
+          sortedVersions.forEach(version => {
+            contentByVersion[version].style.display = version === versionGroup ? 'block' : 'none';
+            buttonByVersion[version].style.background = version === versionGroup ? '#8bac0f' : '#333';
+          });
+
+          if (updateStore) {
+            gbaVersionStore.set(versionGroup);
+          }
+        };
+
         sortedVersions.forEach(versionGroup => {
-          const levels = Object.keys(movesByLevelByVersion[versionGroup]).map(Number).sort((a,b)=>a-b);
-          for (const lvl of levels) {
-            if (!allMoves.has(lvl)) {
-              allMoves.set(lvl, new Set());
-            }
-            movesByLevelByVersion[versionGroup][lvl].forEach(move => {
-              allMoves.get(lvl).add(move);
-            });
+          buttonByVersion[versionGroup].addEventListener('click', () => setActiveVersion(versionGroup));
+        });
+
+        const unsubscribeMovesSync = gbaVersionStore.subscribe(selectedVersion => {
+          if (contentByVersion[selectedVersion]) {
+            setActiveVersion(selectedVersion, false);
           }
         });
-        
-        Array.from(allMoves.keys()).sort((a,b)=>a-b).forEach(lvl => {
-          const moveNames = Array.from(allMoves.get(lvl)).sort().map(n=>n.replace(/\[|\]/g,''));
-          for (const moveName of moveNames) {
-            const li = document.createElement('li');
-            li.textContent = `Lvl ${lvl}: ${moveName}`;
-            ulm.appendChild(li);
-          }
-        });
-        
-        lm.appendChild(ulm);
+        gbaSyncCleanups.push(unsubscribeMovesSync);
+
+        const preferredVersion = sortedVersions.includes(gbaVersionStore.get())
+          ? gbaVersionStore.get()
+          : sortedVersions[0];
+
+        setActiveVersion(preferredVersion, false);
+        if (preferredVersion !== gbaVersionStore.get()) {
+          gbaVersionStore.set(preferredVersion);
+        }
+
+        lm.appendChild(versionTabs);
+        lm.appendChild(versionContents);
+        contentDiv.appendChild(lm);
       }
-      contentDiv.appendChild(lm);
     }
 
     // egg moves dropdown with comprehensive breeding chains
-    const eggMovesSet = new Set();
+    const eggMovesByVersion = {
+      'firered-leafgreen': new Set(),
+      'ruby-sapphire': new Set(),
+      'emerald': new Set()
+    };
     data.moves.forEach(m => {
       m.version_group_details.forEach(d => {
-        if (
-          d.move_learn_method.name === 'egg' &&
-          GEN1_3_GROUPS.has(d.version_group.name)
-        ) {
-          eggMovesSet.add(m.move.name);
+        if (d.move_learn_method.name === 'egg' && GBA_GROUPS.has(d.version_group.name)) {
+          const versionKey = toGbaVersionKey(d.version_group.name);
+          if (versionKey) {
+            eggMovesByVersion[versionKey].add(m.move.name);
+          }
         }
       });
     });
 
-    const eggMoves = Array.from(eggMovesSet);
+    const eggMoves = Array.from(
+      new Set([
+        ...Array.from(eggMovesByVersion['firered-leafgreen']),
+        ...Array.from(eggMovesByVersion['ruby-sapphire']),
+        ...Array.from(eggMovesByVersion['emerald'])
+      ])
+    );
     const eggDiv = document.createElement('div');
     const detailsEl = document.createElement('details');
     const sum = document.createElement('summary');
@@ -921,75 +945,97 @@ async function buildEvolutionTabs(names, chains = [], spriteImg = null, selected
         }
       } catch (_) {}
 
-      await Promise.all(eggMoves.map(async mv => {
-        const li = document.createElement('li');
-        li.style.marginBottom = '12px';
+      const renderEggMoves = async (selectedVersion) => {
+        ulEgg.innerHTML = '';
+        sum.textContent = `Egg moves (${VERSION_GROUP_NAMES[selectedVersion] || selectedVersion})`;
 
-        const moveLabel = document.createElement('div');
-        moveLabel.style.marginBottom = '4px';
-        moveLabel.style.fontSize = '12px';
-        moveLabel.style.color = '#aaa';
-        moveLabel.textContent = mv + ':';
-        li.appendChild(moveLabel);
-
-        const sources = breedChainsMap[mv] || [];
-        if (sources.length > 0) {
-          const sourcesWrap = document.createElement('div');
-          sourcesWrap.style.display = 'flex';
-          sourcesWrap.style.flexWrap = 'wrap';
-          sourcesWrap.style.gap = '6px';
-
-          for (const source of sources.slice(0, 4)) {
-            const sourceWrap = document.createElement('span');
-            sourceWrap.style.display = 'inline-flex';
-            sourceWrap.style.alignItems = 'center';
-            sourceWrap.style.gap = '4px';
-
-            try {
-              const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${source}`);
-              if (spriteResp.ok) {
-                const spriteData = await spriteResp.json();
-                const spriteUrl = spriteData.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default 
-                  || spriteData.sprites?.versions?.['generation-v']?.['black-white']?.front_default
-                  || spriteData.sprites?.front_default;
-                if (spriteUrl) {
-                  const img = document.createElement('img');
-                  img.src = spriteUrl;
-                  img.style.width = '32px';
-                  img.style.height = '32px';
-                  img.style.imageRendering = 'pixelated';
-                  img.title = source;
-                  sourceWrap.appendChild(img);
-                }
-              }
-            } catch (_) {}
-
-            const sourceSpan = document.createElement('span');
-            sourceSpan.textContent = source;
-            sourceSpan.style.fontSize = '10px';
-            sourceWrap.appendChild(sourceSpan);
-            sourcesWrap.appendChild(sourceWrap);
-          }
-
-          if (sources.length > 4) {
-            const more = document.createElement('span');
-            more.textContent = `+${sources.length - 4}`;
-            more.style.fontSize = '10px';
-            more.style.color = '#8bac0f';
-            sourcesWrap.appendChild(more);
-          }
-
-          li.appendChild(sourcesWrap);
-        } else {
-          const none = document.createElement('span');
-          none.textContent = '(no egg-group sources found)';
-          none.style.fontSize = '10px';
-          none.style.color = '#888';
-          li.appendChild(none);
+        const versionMoves = Array.from(eggMovesByVersion[selectedVersion] || []).sort();
+        if (!versionMoves.length) {
+          const li = document.createElement('li');
+          li.textContent = '(no egg moves for this game)';
+          li.style.fontSize = '10px';
+          li.style.color = '#888';
+          ulEgg.appendChild(li);
+          return;
         }
 
-        ulEgg.appendChild(li);
-      }));
+        for (const mv of versionMoves) {
+          const li = document.createElement('li');
+          li.style.marginBottom = '12px';
+
+          const moveLabel = document.createElement('div');
+          moveLabel.style.marginBottom = '4px';
+          moveLabel.style.fontSize = '12px';
+          moveLabel.style.color = '#aaa';
+          moveLabel.textContent = mv + ':';
+          li.appendChild(moveLabel);
+
+          const sources = breedChainsMap[mv] || [];
+          if (sources.length > 0) {
+            const sourcesWrap = document.createElement('div');
+            sourcesWrap.style.display = 'flex';
+            sourcesWrap.style.flexWrap = 'wrap';
+            sourcesWrap.style.gap = '6px';
+
+            for (const source of sources.slice(0, 4)) {
+              const sourceWrap = document.createElement('span');
+              sourceWrap.style.display = 'inline-flex';
+              sourceWrap.style.alignItems = 'center';
+              sourceWrap.style.gap = '4px';
+
+              try {
+                const spriteResp = await fetch(`https://pokeapi.co/api/v2/pokemon/${source}`);
+                if (spriteResp.ok) {
+                  const spriteData = await spriteResp.json();
+                  const spriteUrl = spriteData.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default
+                    || spriteData.sprites?.versions?.['generation-v']?.['black-white']?.front_default
+                    || spriteData.sprites?.front_default;
+                  if (spriteUrl) {
+                    const img = document.createElement('img');
+                    img.src = spriteUrl;
+                    img.style.width = '32px';
+                    img.style.height = '32px';
+                    img.style.imageRendering = 'pixelated';
+                    img.title = source;
+                    sourceWrap.appendChild(img);
+                  }
+                }
+              } catch (_) {}
+
+              const sourceSpan = document.createElement('span');
+              sourceSpan.textContent = source;
+              sourceSpan.style.fontSize = '10px';
+              sourceWrap.appendChild(sourceSpan);
+              sourcesWrap.appendChild(sourceWrap);
+            }
+
+            if (sources.length > 4) {
+              const more = document.createElement('span');
+              more.textContent = `+${sources.length - 4}`;
+              more.style.fontSize = '10px';
+              more.style.color = '#8bac0f';
+              sourcesWrap.appendChild(more);
+            }
+
+            li.appendChild(sourcesWrap);
+          } else {
+            const none = document.createElement('span');
+            none.textContent = '(no egg-group sources found)';
+            none.style.fontSize = '10px';
+            none.style.color = '#888';
+            li.appendChild(none);
+          }
+
+          ulEgg.appendChild(li);
+        }
+      };
+
+      const unsubscribeEggSync = gbaVersionStore.subscribe(selectedVersion => {
+        renderEggMoves(selectedVersion);
+      });
+      gbaSyncCleanups.push(unsubscribeEggSync);
+
+      await renderEggMoves(gbaVersionStore.get());
 
       detailsEl.appendChild(ulEgg);
     } else {
@@ -1155,8 +1201,15 @@ const genSelect = document.getElementById('gen-select');
 genSelect.addEventListener('change', () => loadNames(genSelect.value));
 
 // initial load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   console.log('DOMContentLoaded: loading pokemon names...');
-  loadNames();
+  await loadNames();
+
+  const params = new URLSearchParams(window.location.search);
+  const requestedPokemon = (params.get('pokemon') || 'bulbasaur').trim().toLowerCase();
+  const initialPokemon = requestedPokemon || 'bulbasaur';
+
+  const searchInputEl = document.getElementById('search');
+  searchInputEl.value = initialPokemon;
+  lookup(initialPokemon);
 });
-document.addEventListener('DOMContentLoaded', () => loadNames());
